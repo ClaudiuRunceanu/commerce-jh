@@ -1,0 +1,23 @@
+{
+    "commerceApp": {
+        "currency" : {
+            "home": {
+                "title": "Currencies",
+                "createLabel": "Crează o nouă Currency",
+                "createOrEditLabel": "Crează sau editează o Currency"
+            },
+            "created": "O nouă Currency este creată cu identificatorul {{ param }}",
+            "updated": "O Currency este editată cu identificatorul {{ param }}",
+            "deleted": "O Currency este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Currency {{ id }}?"
+            },
+            "detail": {
+                "title": "Currency"
+            },
+            "code": "Code",
+            "name": "Name",
+            "symbol": "Symbol"
+        }
+    }
+}

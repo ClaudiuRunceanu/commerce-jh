@@ -1,0 +1,22 @@
+{
+    "commerceApp": {
+        "price" : {
+            "home": {
+                "title": "Prices",
+                "createLabel": "Crează o nouă Price",
+                "createOrEditLabel": "Crează sau editează o Price"
+            },
+            "created": "O nouă Price este creată cu identificatorul {{ param }}",
+            "updated": "O Price este editată cu identificatorul {{ param }}",
+            "deleted": "O Price este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Price {{ id }}?"
+            },
+            "detail": {
+                "title": "Price"
+            },
+            "value": "Value",
+            "currency": "Currency"
+        }
+    }
+}

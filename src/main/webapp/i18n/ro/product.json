@@ -1,0 +1,28 @@
+{
+    "commerceApp": {
+        "product" : {
+            "home": {
+                "title": "Products",
+                "createLabel": "Crează o nouă Product",
+                "createOrEditLabel": "Crează sau editează o Product"
+            },
+            "created": "O nouă Product este creată cu identificatorul {{ param }}",
+            "updated": "O Product este editată cu identificatorul {{ param }}",
+            "deleted": "O Product este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Product {{ id }}?"
+            },
+            "detail": {
+                "title": "Product"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "price": "Price",
+            "stocks": "Stocks",
+            "media": "Media",
+            "catalog": "Catalog",
+            "categories": "Categories"
+        }
+    }
+}

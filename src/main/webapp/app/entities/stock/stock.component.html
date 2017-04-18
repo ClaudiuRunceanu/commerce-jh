@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="commerceApp.stock.home.title">Stocks</span>
+        <button class="btn btn-primary float-right create-stock" [routerLink]="['/', { outlets: { popup: ['stock-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="commerceApp.stock.home.createLabel">
+            Create new Stock
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="stocks">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="commerceApp.stock.available">Available</span></th>
+            <th><span jhiTranslate="commerceApp.stock.preOrder">Pre Order</span></th>
+            <th><span jhiTranslate="commerceApp.stock.reserved">Reserved</span></th>
+            <th><span jhiTranslate="commerceApp.stock.expireDate">Expire Date</span></th>
+            <th><span jhiTranslate="commerceApp.stock.creationDate">Creation Date</span></th>
+            <th><span jhiTranslate="commerceApp.stock.warehouse">Warehouse</span></th>
+            <th><span jhiTranslate="commerceApp.stock.product">Product</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stock of stocks ;trackBy: trackId">
+                <td><a [routerLink]="['../stock', stock.id ]">{{stock.id}}</a></td>
+                <td>{{stock.available}}</td>
+                <td>{{stock.preOrder}}</td>
+                <td>{{stock.reserved}}</td>
+                <td>{{stock.expireDate | date:'medium'}}</td>
+                <td>{{stock.creationDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="stock.warehouse">
+                        <a [routerLink]="['../warehouse', stock.warehouse?.id ]" >{{stock.warehouse?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="stock.product">
+                        <a [routerLink]="['../product', stock.product?.id ]" >{{stock.product?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../stock', stock.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'stock/'+ stock.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'stock/'+ stock.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

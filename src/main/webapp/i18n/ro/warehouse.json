@@ -1,0 +1,23 @@
+{
+    "commerceApp": {
+        "warehouse" : {
+            "home": {
+                "title": "Warehouses",
+                "createLabel": "Crează o nouă Warehouse",
+                "createOrEditLabel": "Crează sau editează o Warehouse"
+            },
+            "created": "O nouă Warehouse este creată cu identificatorul {{ param }}",
+            "updated": "O Warehouse este editată cu identificatorul {{ param }}",
+            "deleted": "O Warehouse este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Warehouse {{ id }}?"
+            },
+            "detail": {
+                "title": "Warehouse"
+            },
+            "name": "Name",
+            "address": "Address",
+            "consignments": "Consignments"
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "commerceApp": {
+        "ClassificationAttributeType" : {
+            "null": "",
+            "STRING": "STRING",
+            "DOUBLE": "DOUBLE",
+            "BOOLEAN": "BOOLEAN",
+            "RANGE": "RANGE",
+            "DATE": "DATE"
+        }
+    }
+}

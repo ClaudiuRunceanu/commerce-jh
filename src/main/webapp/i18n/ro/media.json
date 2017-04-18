@@ -1,0 +1,24 @@
+{
+    "commerceApp": {
+        "media" : {
+            "home": {
+                "title": "Media",
+                "createLabel": "Crează o nouă Media",
+                "createOrEditLabel": "Crează sau editează o Media"
+            },
+            "created": "O nouă Media este creată cu identificatorul {{ param }}",
+            "updated": "O Media este editată cu identificatorul {{ param }}",
+            "deleted": "O Media este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Media {{ id }}?"
+            },
+            "detail": {
+                "title": "Media"
+            },
+            "code": "Code",
+            "title": "Title",
+            "image": "Image",
+            "product": "Product"
+        }
+    }
+}

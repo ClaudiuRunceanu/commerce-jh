@@ -1,0 +1,31 @@
+
+<div *ngIf="price">
+    <h2><span jhiTranslate="commerceApp.price.detail.title">Price</span> {{price.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="commerceApp.price.value">Value</span></dt>
+        <dd>
+            <span>{{price.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.price.currency">Currency</span></dt>
+        <dd>
+            <div *ngIf="price.currency">
+                <a [routerLink]="['/currency', price.currency?.id]">{{price.currency?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'price/'+ price.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

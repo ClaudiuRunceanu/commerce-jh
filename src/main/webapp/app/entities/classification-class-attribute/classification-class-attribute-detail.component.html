@@ -1,0 +1,43 @@
+
+<div *ngIf="classificationClassAttribute">
+    <h2><span jhiTranslate="commerceApp.classificationClassAttribute.detail.title">Classification Class Attribute</span> {{classificationClassAttribute.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="commerceApp.classificationClassAttribute.description">Description</span></dt>
+        <dd>
+            <span>{{classificationClassAttribute.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.classificationClassAttribute.attributeName">Attribute Name</span></dt>
+        <dd>
+            <span>{{classificationClassAttribute.attributeName}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.classificationClassAttribute.value">Value</span></dt>
+        <dd>
+            <span>{{classificationClassAttribute.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.classificationClassAttribute.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'commerceApp.ClassificationAttributeType.' + classificationClassAttribute.type}}">{{classificationClassAttribute.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.classificationClassAttribute.category">Category</span></dt>
+        <dd>
+            <div *ngIf="classificationClassAttribute.category">
+                <a [routerLink]="['/category', classificationClassAttribute.category?.id]">{{classificationClassAttribute.category?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'classification-class-attribute/'+ classificationClassAttribute.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

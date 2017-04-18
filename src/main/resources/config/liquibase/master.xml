@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145809_added_entity_Currency.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145810_added_entity_Price.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145811_added_entity_Catalog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145812_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145813_added_entity_ClassificationClassAttribute.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145814_added_entity_Stock.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145815_added_entity_Warehouse.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145816_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170417111200_added_entity_Media.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170414145810_added_entity_constraints_Price.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145812_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145813_added_entity_constraints_ClassificationClassAttribute.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145814_added_entity_constraints_Stock.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170414145816_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170417111200_added_entity_constraints_Media.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

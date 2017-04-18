@@ -1,0 +1,23 @@
+{
+    "commerceApp": {
+        "catalog" : {
+            "home": {
+                "title": "Catalogs",
+                "createLabel": "Crează o nouă Catalog",
+                "createOrEditLabel": "Crează sau editează o Catalog"
+            },
+            "created": "O nouă Catalog este creată cu identificatorul {{ param }}",
+            "updated": "O Catalog este editată cu identificatorul {{ param }}",
+            "deleted": "O Catalog este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Catalog {{ id }}?"
+            },
+            "detail": {
+                "title": "Catalog"
+            },
+            "name": "Name",
+            "isDefault": "Is Default",
+            "version": "Version"
+        }
+    }
+}

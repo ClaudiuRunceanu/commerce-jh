@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span jhiTranslate="commerceApp.classificationClassAttribute.home.title">Classification Class Attributes</span>
+        <button class="btn btn-primary float-right create-classification-class-attribute" [routerLink]="['/', { outlets: { popup: ['classification-class-attribute-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="commerceApp.classificationClassAttribute.home.createLabel">
+            Create new Classification Class Attribute
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="classificationClassAttributes">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="commerceApp.classificationClassAttribute.description">Description</span></th>
+            <th><span jhiTranslate="commerceApp.classificationClassAttribute.attributeName">Attribute Name</span></th>
+            <th><span jhiTranslate="commerceApp.classificationClassAttribute.value">Value</span></th>
+            <th><span jhiTranslate="commerceApp.classificationClassAttribute.type">Type</span></th>
+            <th><span jhiTranslate="commerceApp.classificationClassAttribute.category">Category</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let classificationClassAttribute of classificationClassAttributes ;trackBy: trackId">
+                <td><a [routerLink]="['../classification-class-attribute', classificationClassAttribute.id ]">{{classificationClassAttribute.id}}</a></td>
+                <td>{{classificationClassAttribute.description}}</td>
+                <td>{{classificationClassAttribute.attributeName}}</td>
+                <td>{{classificationClassAttribute.value}}</td>
+                <td jhiTranslate="{{'commerceApp.ClassificationAttributeType.' + classificationClassAttribute.type}}">{{classificationClassAttribute.type}}</td>
+                <td>
+                    <div *ngIf="classificationClassAttribute.category">
+                        <a [routerLink]="['../category', classificationClassAttribute.category?.id ]" >{{classificationClassAttribute.category?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../classification-class-attribute', classificationClassAttribute.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'classification-class-attribute/'+ classificationClassAttribute.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'classification-class-attribute/'+ classificationClassAttribute.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

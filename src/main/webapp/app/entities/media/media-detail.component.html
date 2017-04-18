@@ -1,0 +1,39 @@
+
+<div *ngIf="media">
+    <h2><span jhiTranslate="commerceApp.media.detail.title">Media</span> {{media.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="commerceApp.media.code">Code</span></dt>
+        <dd>
+            <span>{{media.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.media.title">Title</span></dt>
+        <dd>
+            <span>{{media.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.media.image">Image</span></dt>
+        <dd>
+            <span>{{media.image}}</span>
+        </dd>
+        <dt><span jhiTranslate="commerceApp.media.product">Product</span></dt>
+        <dd>
+            <div *ngIf="media.product">
+                <a [routerLink]="['/product', media.product?.id]">{{media.product?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

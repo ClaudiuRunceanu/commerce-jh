@@ -1,0 +1,74 @@
+
+entity Currency{
+code String required maxlength(70),
+name String required maxlength(70),
+symbol String required maxlength(10)
+}
+
+entity Price{
+value Double required min(0)
+}
+
+entity Catalog{
+name String required maxlength(100),
+isDefault Boolean,
+version CatalogVersion required
+}
+
+entity Category{
+name String required maxlength(100),
+description String maxlength(300)
+}
+
+entity ClassificationClassAttribute{
+description String maxlength(300),
+attributeName String required maxlength(100),
+type ClassificationAttributeType required
+}
+
+entity Stock{
+available Integer required min(0),
+preOrder Integer min(0),
+reserved Integer min(0),
+expireDate ZonedDateTime required,
+creationDate ZonedDateTime required
+}
+
+entity Warehouse{
+name String required maxlength(100),
+address String required maxlength(100),
+consignments String maxlength(200)
+}
+
+entity Product{
+code String required maxlength(100),
+name String required maxlength(200)
+}
+
+enum ClassificationAttributeType{
+STRING, DOUBLE, BOOLEAN, RANGE, DATE
+}
+
+enum CatalogVersion{
+ONLINE, STAGE
+}
+
+relationship ManyToMany{
+Product {categories} to Category{products} 
+}
+
+relationship OneToMany {
+Category{classificationAttribute} to ClassificationClassAttribute,
+Product {prices required} to Price,
+Product {stocks required} to Stock
+}
+
+relationship ManyToOne {
+Price{currency} to Currency,
+Stock{warehouse} to Warehouse,
+Category{parent} to Category,
+Product{catalog} to Catalog
+}
+
+
+

@@ -1,0 +1,25 @@
+{
+    "commerceApp": {
+        "category" : {
+            "home": {
+                "title": "Categories",
+                "createLabel": "Crează o nouă Category",
+                "createOrEditLabel": "Crează sau editează o Category"
+            },
+            "created": "O nouă Category este creată cu identificatorul {{ param }}",
+            "updated": "O Category este editată cu identificatorul {{ param }}",
+            "deleted": "O Category este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Category {{ id }}?"
+            },
+            "detail": {
+                "title": "Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "classificationAttribute": "Classification Attribute",
+            "parent": "Parent",
+            "products": "Products"
+        }
+    }
+}

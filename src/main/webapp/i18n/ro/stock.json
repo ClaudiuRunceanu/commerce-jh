@@ -1,0 +1,27 @@
+{
+    "commerceApp": {
+        "stock" : {
+            "home": {
+                "title": "Stocks",
+                "createLabel": "Crează o nouă Stock",
+                "createOrEditLabel": "Crează sau editează o Stock"
+            },
+            "created": "O nouă Stock este creată cu identificatorul {{ param }}",
+            "updated": "O Stock este editată cu identificatorul {{ param }}",
+            "deleted": "O Stock este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Stock {{ id }}?"
+            },
+            "detail": {
+                "title": "Stock"
+            },
+            "available": "Available",
+            "preOrder": "Pre Order",
+            "reserved": "Reserved",
+            "expireDate": "Expire Date",
+            "creationDate": "Creation Date",
+            "warehouse": "Warehouse",
+            "product": "Product"
+        }
+    }
+}

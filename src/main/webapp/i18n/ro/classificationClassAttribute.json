@@ -1,0 +1,25 @@
+{
+    "commerceApp": {
+        "classificationClassAttribute" : {
+            "home": {
+                "title": "Classification Class Attributes",
+                "createLabel": "Crează o nouă Classification Class Attribute",
+                "createOrEditLabel": "Crează sau editează o Classification Class Attribute"
+            },
+            "created": "O nouă Classification Class Attribute este creată cu identificatorul {{ param }}",
+            "updated": "O Classification Class Attribute este editată cu identificatorul {{ param }}",
+            "deleted": "O Classification Class Attribute este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Classification Class Attribute {{ id }}?"
+            },
+            "detail": {
+                "title": "Classification Class Attribute"
+            },
+            "description": "Description",
+            "attributeName": "Attribute Name",
+            "value": "Value",
+            "type": "Type",
+            "category": "Category"
+        }
+    }
+}

@@ -1,0 +1,72 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "price",
+            "otherEntityName": "price",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "product"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "stocks",
+            "otherEntityName": "stock",
+            "otherEntityRelationshipName": "product"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "media",
+            "otherEntityName": "media",
+            "otherEntityRelationshipName": "product"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "catalog",
+            "otherEntityName": "catalog",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "products",
+            "relationshipName": "categories",
+            "otherEntityName": "category",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 500
+        }
+    ],
+    "changelogDate": "20170414145816",
+    "entityTableName": "product",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "classificationAttribute",
+            "otherEntityName": "classificationClassAttribute",
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "category",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "products",
+            "otherEntityName": "product",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "categories"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
+        }
+    ],
+    "changelogDate": "20170414145812",
+    "entityTableName": "category",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

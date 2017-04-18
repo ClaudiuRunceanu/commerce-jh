@@ -1,0 +1,9 @@
+{
+    "commerceApp": {
+        "CatalogVersion" : {
+            "null": "",
+            "ONLINE": "ONLINE",
+            "STAGE": "STAGE"
+        }
+    }
+}
