@@ -30,7 +30,9 @@
                 <td>{{media.code}}</td>
                 <td>{{media.title}}</td>
 
-                <td>{{media.image}}</td>
+                <td>
+                    <img [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + media.image)" />
+                </td>
 
                 <td>
                     <div *ngIf="media.product">

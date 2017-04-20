@@ -9,6 +9,8 @@ import { MediaService } from './media.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
+import {DomSanitizer} from '@angular/platform-browser';
+
 @Component({
     selector: 'jhi-media',
     templateUrl: './media.component.html'
@@ -24,7 +26,8 @@ media: Media[];
         private alertService: AlertService,
         private dataUtils: DataUtils,
         private eventManager: EventManager,
-        private principal: Principal
+        private principal: Principal,
+        public _DomSanitizer: DomSanitizer
     ) {
         this.jhiLanguageService.setLocations(['media']);
     }

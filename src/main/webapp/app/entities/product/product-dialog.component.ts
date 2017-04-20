@@ -10,7 +10,11 @@ import { ProductPopupService } from './product-popup.service';
 import { ProductService } from './product.service';
 import { Price, PriceService } from '../price';
 import { Catalog, CatalogService } from '../catalog';
-import { Category, CategoryService } from '../category';
+import { CurrencyService} from './../currency/currency.service';
+import { Currency} from './../currency/currency.model';
+import {CategoryService} from "../category/category.service";
+import {Category} from "../category/category.model";
+
 
 @Component({
     selector: 'jhi-product-dialog',
@@ -21,12 +25,11 @@ export class ProductDialogComponent implements OnInit {
     product: Product;
     authorities: any[];
     isSaving: boolean;
-
     prices: Price[];
-
     catalogs: Catalog[];
-
     categories: Category[];
+    currencies: Currency[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -35,7 +38,9 @@ export class ProductDialogComponent implements OnInit {
         private priceService: PriceService,
         private catalogService: CatalogService,
         private categoryService: CategoryService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+
+        private currencyService: CurrencyService
     ) {
         this.jhiLanguageService.setLocations(['product']);
     }
@@ -56,6 +61,11 @@ export class ProductDialogComponent implements OnInit {
             (res: Response) => { this.catalogs = res.json(); }, (res: Response) => this.onError(res.json()));
         this.categoryService.query().subscribe(
             (res: Response) => { this.categories = res.json(); }, (res: Response) => this.onError(res.json()));
+
+        this.currencyService.query().subscribe(
+            (res: Response) => { this.currencies = res.json(); }, (res: Response) => this.onError(res.json()));
+        console.log("Product values: ");
+        console.log(this.product);
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -103,6 +113,9 @@ export class ProductDialogComponent implements OnInit {
     }
 
     trackCategoryById(index: number, item: Category) {
+        return item.id;
+    }
+    trackCurrencyById(index: number, item: Currency) {
         return item.id;
     }
 

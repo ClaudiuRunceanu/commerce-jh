@@ -23,7 +23,8 @@
             "media": "Media",
             "catalog": "Catalog",
             "categories": "Categories",
-            "createStock":"Create stock"
+            "createStock":"Create stock",
+            "currency":"Currency"
         }
     }
 }

@@ -68,15 +68,27 @@
             <label jhiTranslate="commerceApp.product.catalog" for="field_catalog">Catalog</label>
             <select class="form-control" id="field_catalog" name="catalog" [(ngModel)]="product.catalog" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="catalogOption.id === product.catalog?.id ? product.catalog : catalogOption" *ngFor="let catalogOption of catalogs; trackBy: trackCatalogById">{{catalogOption.id}}</option>
+                <option [ngValue]="catalogOption.id === product.catalog?.id ? product.catalog : catalogOption" *ngFor="let catalogOption of catalogs; trackBy: trackCatalogById">{{catalogOption.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="commerceApp.product.categories" for="field_categories">Categories</label>
             <select class="form-control" id="field_categories" multiple name="categories" [(ngModel)]="product.categories">
-                <option [ngValue]="getSelected(product.categories, categoryOption)" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                <option [ngValue]="getSelected(product.categories, categoryOption)" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.name}}</option>
             </select>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.product.price" for="field_priceValue">PriceValue</label>
+            <input type="number" min="1" step="any" class="form-control" name="priceValue" id="field_priceValue" [(ngModel)]="product.priceValue"/>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="commerceApp.product.currency" for="field_currency">Currency</label>
+            <select class="form-control" id="field_currency" name="currency" [(ngModel)]="product.currency" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="currencyOption.id === product.currency?.id ? product.currency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.name}}</option>
+            </select>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

@@ -2,15 +2,24 @@ package com.commerce.service.dto;
 
 import com.commerce.domain.*;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
- * Created by Claudiu on 4/15/2017.
+ * Data class for product.
  */
 public class ProductDTO {
     private Long id;
+    @NotNull
+    @Size(max = 100)
     private String code;
+    @NotNull
+    @Size(max = 200)
     private String name;
+    @Size(max = 500)
+    @Column(name = "description", length = 500)
     private String description;
     private Catalog catalog;
     private Price price;

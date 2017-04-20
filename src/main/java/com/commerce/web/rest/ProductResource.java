@@ -48,12 +48,13 @@ public class ProductResource {
      */
     @PostMapping("/products")
     @Timed
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) throws URISyntaxException {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDTO product) throws URISyntaxException {
         log.debug("REST request to save Product : {}", product);
         if (product.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new product cannot already have an ID")).body(null);
         }
-        Product result = productRepository.save(product);
+       // Product result = productRepository.save(product);
+        Product result = productService.saveNewProduct(product);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -70,12 +71,14 @@ public class ProductResource {
      */
     @PutMapping("/products")
     @Timed
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) throws URISyntaxException {
+    public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO product) throws URISyntaxException {
         log.debug("REST request to update Product : {}", product);
         if (product.getId() == null) {
             return createProduct(product);
         }
-        Product result = productRepository.save(product);
+        // temporary hack
+     //   Product result = productRepository.save(new Product());
+        Product result = productService.saveNewProduct(product);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, product.getId().toString()))
             .body(result);
@@ -114,10 +117,10 @@ public class ProductResource {
      */
     @GetMapping("/products/{id}")
     @Timed
-    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
         log.debug("REST request to get Product : {}", id);
-        Product product = productRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(product));
+       // Product product = productRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productService.getProductById(id)));
     }
 
     /**
