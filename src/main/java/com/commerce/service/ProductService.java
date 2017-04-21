@@ -35,6 +35,10 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
+    public void deleteProductById(Long id){
+        this.productRepository.delete(id);
+    }
+
     public ProductDTO getProductById(Long id){
      Product product = this.productRepository.findOneWithEagerRelationships(id);
         return this.productConverter.getProductData(product);

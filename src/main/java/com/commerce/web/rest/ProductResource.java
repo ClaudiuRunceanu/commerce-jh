@@ -30,12 +30,10 @@ public class ProductResource {
 
     private static final String ENTITY_NAME = "product";
 
-    private final ProductRepository productRepository;
 
     private final ProductService productService;
 
-    public ProductResource(ProductRepository productRepository, ProductService productService) {
-        this.productRepository = productRepository;
+    public ProductResource(ProductService productService) {
         this.productService = productService;
     }
 
@@ -76,7 +74,6 @@ public class ProductResource {
         if (product.getId() == null) {
             return createProduct(product);
         }
-        // temporary hack
      //   Product result = productRepository.save(new Product());
         Product result = productService.saveNewProduct(product);
         return ResponseEntity.ok()
@@ -91,23 +88,12 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public List<Product> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         log.debug("REST request to get all Products");
-        List<Product> products = productRepository.findAllWithEagerRelationships();
-        return products;
-    }
-
-    /**
-     * GET  /products : get all the products.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of products in body
-     */
-    @GetMapping("/productsdto")
-    @Timed
-    public List<ProductDTO> getAllProductsDto() {
-        log.debug("REST request to get all Products DTO");
+//        List<Product> products = productRepository.findAllWithEagerRelationships();
         return productService.getAllProducts();
     }
+
 
     /**
      * GET  /products/:id : get the "id" product.
@@ -133,7 +119,7 @@ public class ProductResource {
     @Timed
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
-        productRepository.delete(id);
+        productService.deleteProductById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

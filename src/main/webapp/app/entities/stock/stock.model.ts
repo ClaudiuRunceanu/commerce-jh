@@ -10,6 +10,7 @@ export class Stock {
         public creationDate?: any,
         public warehouse?: Warehouse,
         public product?: Product,
+        public productId?: number,
     ) {
     }
 }

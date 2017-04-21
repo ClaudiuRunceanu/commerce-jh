@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.Stock;
 
 import com.commerce.repository.StockRepository;
+import com.commerce.service.StockService;
+import com.commerce.service.dto.StockDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,12 +29,16 @@ public class StockResource {
     private final Logger log = LoggerFactory.getLogger(StockResource.class);
 
     private static final String ENTITY_NAME = "stock";
-        
+
     private final StockRepository stockRepository;
 
-    public StockResource(StockRepository stockRepository) {
+    private final StockService stockService;
+
+    public StockResource(StockRepository stockRepository, StockService stockService) {
         this.stockRepository = stockRepository;
+        this.stockService = stockService;
     }
+
 
     /**
      * POST  /stocks : Create a new stock.
@@ -43,12 +49,13 @@ public class StockResource {
      */
     @PostMapping("/stocks")
     @Timed
-    public ResponseEntity<Stock> createStock(@Valid @RequestBody Stock stock) throws URISyntaxException {
+    public ResponseEntity<StockDto> createStock(@Valid @RequestBody StockDto stock) throws URISyntaxException {
         log.debug("REST request to save Stock : {}", stock);
         if (stock.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new stock cannot already have an ID")).body(null);
         }
-        Stock result = stockRepository.save(stock);
+     //   Stock result = stockRepository.save(stock);
+        StockDto result = stockService.createStockForProduct(stock);
         return ResponseEntity.created(new URI("/api/stocks/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -67,9 +74,11 @@ public class StockResource {
     @Timed
     public ResponseEntity<Stock> updateStock(@Valid @RequestBody Stock stock) throws URISyntaxException {
         log.debug("REST request to update Stock : {}", stock);
-        if (stock.getId() == null) {
-            return createStock(stock);
-        }
+
+        // tempoarary hack
+//        if (stock.getId() == null) {
+//            return createStock(stock);
+//        }
         Stock result = stockRepository.save(stock);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, stock.getId().toString()))

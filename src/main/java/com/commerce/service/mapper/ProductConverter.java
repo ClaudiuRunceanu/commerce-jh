@@ -33,6 +33,7 @@ public class ProductConverter {
 
             if (product.getPrice().getCurrency() != null) {
                 productDTO.setCurrencySymbol(product.getPrice().getCurrency().getSymbol());
+                productDTO.setCurrency(product.getPrice().getCurrency());
             }
         }
 

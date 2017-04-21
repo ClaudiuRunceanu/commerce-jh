@@ -29,7 +29,7 @@ products: Product[];
     }
 
     loadAll() {
-        this.productService.queryDto().subscribe(
+        this.productService.query().subscribe(
             (res: Response) => {
                 this.products = res.json();
             },

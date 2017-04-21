@@ -21,7 +21,7 @@
                 <th><span jhiTranslate="commerceApp.product.code">Code</span></th>
                 <th><span jhiTranslate="commerceApp.product.name">Name</span></th>
                 <th><span jhiTranslate="commerceApp.product.description">Description</span></th>
-                <th><span jhiTranslate="commerceApp.product.price">Price</span></th>
+                <!--<th><span jhiTranslate="commerceApp.product.price">Price</span></th>-->
                 <th><span jhiTranslate="commerceApp.product.catalog">Catalog</span></th>
                 <th><span jhiTranslate="commerceApp.product.categories">Categories</span></th>
                 <th><span jhiTranslate="commerceApp.product.price">Price</span></th>
@@ -34,11 +34,11 @@
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.description}}</td>
-                <td>
-                    <div *ngIf="product.price">
-                        <a [routerLink]="['../price', product.price?.id ]">{{product.price?.id}}</a>
-                    </div>
-                </td>
+                <!--<td>-->
+                    <!--<div *ngIf="product.price">-->
+                        <!--<a [routerLink]="['../price', product.price?.id ]">{{product.price?.id}}</a>-->
+                    <!--</div>-->
+                <!--</td>-->
                 <td>
                     <div *ngIf="product.catalog">
                         <a [routerLink]="['../catalog', product.catalog?.id ]">{{product.catalog?.name}}</a>
@@ -73,7 +73,7 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: ['stock-new'] } }]"
+                                [routerLink]="['/', { outlets: { popup: 'stock-new/'+ product.id } }]"
                                 replaceUrl="true"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-sticky-note-o"></span>

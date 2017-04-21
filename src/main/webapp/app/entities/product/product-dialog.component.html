@@ -1,7 +1,12 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myProductLabel" jhiTranslate="commerceApp.product.home.createOrEditLabel">Create or edit a Product</h4>
+        <div *ngIf="product.id">
+        <h4 class="modal-title" id="myProductLabelForEdit" jhiTranslate="commerceApp.product.home.editLabel">Create or edit a Product</h4>
+        </div>
+        <div *ngIf="!product.id">
+            <h4 class="modal-title" id="myProductLabelForCreate" jhiTranslate="commerceApp.product.home.createLabel">Create or edit a Product</h4>
+        </div>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
@@ -57,13 +62,13 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label jhiTranslate="commerceApp.product.price" for="field_price">Price</label>
-            <select class="form-control" id="field_price" name="price" [(ngModel)]="product.price">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="priceOption.id === product.price?.id ? product.price : priceOption" *ngFor="let priceOption of prices; trackBy: trackPriceById">{{priceOption.id}}</option>
-            </select>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label jhiTranslate="commerceApp.product.price" for="field_price">Price</label>-->
+            <!--<select class="form-control" id="field_price" name="price" [(ngModel)]="product.price">-->
+                <!--<option [ngValue]="null"></option>-->
+                <!--<option [ngValue]="priceOption.id === product.price?.id ? product.price : priceOption" *ngFor="let priceOption of prices; trackBy: trackPriceById">{{priceOption.id}}</option>-->
+            <!--</select>-->
+        <!--</div>-->
         <div class="form-group">
             <label jhiTranslate="commerceApp.product.catalog" for="field_catalog">Catalog</label>
             <select class="form-control" id="field_catalog" name="catalog" [(ngModel)]="product.catalog" >

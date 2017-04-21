@@ -4,6 +4,7 @@ import com.commerce.CommerceApp;
 
 import com.commerce.domain.Stock;
 import com.commerce.repository.StockRepository;
+import com.commerce.service.StockService;
 import com.commerce.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -76,10 +77,12 @@ public class StockResourceIntTest {
 
     private Stock stock;
 
+    private StockService stockService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        StockResource stockResource = new StockResource(stockRepository);
+        StockResource stockResource = new StockResource(stockRepository,stockService);
         this.restStockMockMvc = MockMvcBuilders.standaloneSetup(stockResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

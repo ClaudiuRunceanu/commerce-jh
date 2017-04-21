@@ -49,7 +49,6 @@ public class Stock implements Serializable {
     private Warehouse warehouse;
 
     @ManyToOne
-    @JsonIgnore
     private Product product;
 
     public Long getId() {

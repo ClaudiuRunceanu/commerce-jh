@@ -43,6 +43,16 @@ export const stockPopupRoute: Routes = [
     canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
+    {
+        path: 'stock-new/:productId',
+        component: StockPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'commerceApp.stock.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
   {
     path: 'stock/:id/edit',
     component: StockPopupComponent,
