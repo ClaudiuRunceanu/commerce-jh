@@ -37,6 +37,7 @@ products: Product[];
         );
     }
     ngOnInit() {
+        console.log("am intrat in product init");
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;

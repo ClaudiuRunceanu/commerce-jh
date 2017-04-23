@@ -1,5 +1,6 @@
 package com.commerce.repository;
 
+import com.commerce.domain.Product;
 import com.commerce.domain.Stock;
 
 import org.springframework.data.jpa.repository.*;
@@ -12,4 +13,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface StockRepository extends JpaRepository<Stock,Long> {
 
+    List<Stock> findStockByProduct(Product product);
 }

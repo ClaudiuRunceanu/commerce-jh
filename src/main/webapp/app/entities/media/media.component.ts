@@ -13,7 +13,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-media',
-    templateUrl: './media.component.html'
+    templateUrl: './media.component.html',
+    styleUrls:['./media.component.css']
 })
 export class MediaComponent implements OnInit, OnDestroy {
 media: Media[];

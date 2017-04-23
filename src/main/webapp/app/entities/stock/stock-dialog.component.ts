@@ -67,6 +67,7 @@ export class StockDialogComponent implements OnInit {
 
     private onSaveSuccess(result: Stock) {
         this.eventManager.broadcast({name: 'stockListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'productListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }

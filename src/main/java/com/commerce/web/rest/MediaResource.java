@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.Media;
 
 import com.commerce.repository.MediaRepository;
+import com.commerce.service.MediaService;
+import com.commerce.service.dto.MediaDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +29,14 @@ public class MediaResource {
     private final Logger log = LoggerFactory.getLogger(MediaResource.class);
 
     private static final String ENTITY_NAME = "media";
-        
+
     private final MediaRepository mediaRepository;
 
-    public MediaResource(MediaRepository mediaRepository) {
+    private final MediaService mediaService;
+
+    public MediaResource(MediaRepository mediaRepository, MediaService mediaService) {
         this.mediaRepository = mediaRepository;
+        this.mediaService = mediaService;
     }
 
     /**
@@ -43,12 +48,13 @@ public class MediaResource {
      */
     @PostMapping("/media")
     @Timed
-    public ResponseEntity<Media> createMedia(@Valid @RequestBody Media media) throws URISyntaxException {
+    public ResponseEntity<MediaDto> createMedia(@Valid @RequestBody MediaDto media) throws URISyntaxException {
         log.debug("REST request to save Media : {}", media);
         if (media.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new media cannot already have an ID")).body(null);
         }
-        Media result = mediaRepository.save(media);
+        //Media result = mediaRepository.save(media);
+        MediaDto result = this.mediaService.createMediaForProduct(media);
         return ResponseEntity.created(new URI("/api/media/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -67,9 +73,11 @@ public class MediaResource {
     @Timed
     public ResponseEntity<Media> updateMedia(@Valid @RequestBody Media media) throws URISyntaxException {
         log.debug("REST request to update Media : {}", media);
-        if (media.getId() == null) {
-            return createMedia(media);
-        }
+        //temporary hack
+//        if (media.getId() == null) {
+        //  return createMedia(media);
+
+//        }
         Media result = mediaRepository.save(media);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, media.getId().toString()))

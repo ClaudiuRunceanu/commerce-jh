@@ -7,6 +7,7 @@ export class Media {
         public image?: any,
         public imageContentType?: string,
         public product?: Product,
+        public productId?: number,
     ) {
     }
 }

@@ -4,6 +4,7 @@ import com.commerce.CommerceApp;
 
 import com.commerce.domain.Media;
 import com.commerce.repository.MediaRepository;
+import com.commerce.service.MediaService;
 import com.commerce.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,6 +54,9 @@ public class MediaResourceIntTest {
     private MediaRepository mediaRepository;
 
     @Autowired
+    private MediaService mediaService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -71,7 +75,7 @@ public class MediaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        MediaResource mediaResource = new MediaResource(mediaRepository);
+        MediaResource mediaResource = new MediaResource(mediaRepository,mediaService);
         this.restMediaMockMvc = MockMvcBuilders.standaloneSetup(mediaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -25,6 +25,7 @@
                 <th><span jhiTranslate="commerceApp.product.catalog">Catalog</span></th>
                 <th><span jhiTranslate="commerceApp.product.categories">Categories</span></th>
                 <th><span jhiTranslate="commerceApp.product.price">Price</span></th>
+                <th><span jhiTranslate="commerceApp.product.stocks">Stock</span></th>
                 <th></th>
             </tr>
             </thead>
@@ -50,6 +51,11 @@
                         </span>
                 </td>
                 <td>{{product.priceValue}} {{product.currencySymbol}}</td>
+                <td>
+                    <span *ngFor="let stocks of product.stocks; let last = last">
+                            <a class="form-control-static" [routerLink]="['../stock', stocks?.id ]">{{stocks?.available}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
@@ -75,10 +81,18 @@
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'stock-new/'+ product.id } }]"
                                 replaceUrl="true"
-                                class="btn btn-info btn-sm">
+                                class="btn btn-primary btn-sm">
                             <span class="fa fa-sticky-note-o"></span>
                             <span class="hidden-md-down"
                                   jhiTranslate="commerceApp.product.createStock">Create stock</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'media-new/'+ product.id } }]"
+                                replaceUrl="true"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-picture-o"></span>
+                            <span class="hidden-md-down"
+                                  jhiTranslate="commerceApp.product.createMedia">Create media</span>
                         </button>
                     </div>
                 </td>

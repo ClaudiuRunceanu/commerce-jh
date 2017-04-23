@@ -43,6 +43,16 @@ export const mediaPopupRoute: Routes = [
     canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
+    {
+    path: 'media-new/:productId',
+    component: MediaPopupComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'commerceApp.media.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  },
   {
     path: 'media/:id/edit',
     component: MediaPopupComponent,

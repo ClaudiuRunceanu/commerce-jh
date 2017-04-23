@@ -5,6 +5,7 @@ import com.commerce.domain.*;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public class ProductDTO {
     private String description;
     private Catalog catalog;
     private Price price;
-    private Set<Stock> stocks;
+    private List<StockDto> stocks;
     private Set<Media> media;
     private Set<Category> categories;
 
@@ -75,10 +76,6 @@ public class ProductDTO {
         this.currency = currency;
     }
 
-    public void setStocks(Set<Stock> stocks) {
-        this.stocks = stocks;
-    }
-
     public void setMedia(Set<Media> media) {
         this.media = media;
     }
@@ -107,6 +104,14 @@ public class ProductDTO {
         return catalog;
     }
 
+    public List<StockDto> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<StockDto> stocks) {
+        this.stocks = stocks;
+    }
+
     public Double getPriceValue() {
         return priceValue;
     }
@@ -115,9 +120,6 @@ public class ProductDTO {
         return currency;
     }
 
-    public Set<Stock> getStocks() {
-        return stocks;
-    }
 
     public Set<Media> getMedia() {
         return media;

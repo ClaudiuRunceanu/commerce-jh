@@ -25,7 +25,8 @@
             "catalog": "Catalog",
             "categories": "Categories",
             "createStock":"Create stock",
-            "currency":"Currency"
+            "currency":"Currency",
+            "createMedia": "Create media"
         }
     }
 }

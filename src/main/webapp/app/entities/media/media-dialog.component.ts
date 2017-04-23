@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService, DataUtils } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {EventManager, AlertService, JhiLanguageService, DataUtils} from 'ng-jhipster';
 
-import { Media } from './media.model';
-import { MediaPopupService } from './media-popup.service';
-import { MediaService } from './media.service';
-import { Product, ProductService } from '../product';
+import {Media} from './media.model';
+import {MediaPopupService} from './media-popup.service';
+import {MediaService} from './media.service';
+import {Product, ProductService} from '../product';
 
 @Component({
     selector: 'jhi-media-dialog',
@@ -21,15 +21,14 @@ export class MediaDialogComponent implements OnInit {
     isSaving: boolean;
 
     products: Product[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private dataUtils: DataUtils,
-        private alertService: AlertService,
-        private mediaService: MediaService,
-        private productService: ProductService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private dataUtils: DataUtils,
+                private alertService: AlertService,
+                private mediaService: MediaService,
+                private productService: ProductService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['media']);
     }
 
@@ -37,8 +36,11 @@ export class MediaDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.productService.query().subscribe(
-            (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.products = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
+
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
@@ -59,11 +61,12 @@ export class MediaDialogComponent implements OnInit {
             });
         }
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.media.id !== undefined) {
             this.mediaService.update(this.media)
@@ -76,13 +79,13 @@ export class MediaDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Media) {
-        this.eventManager.broadcast({ name: 'mediaListModification', content: 'OK'});
+    private onSaveSuccess(result: Media) {
+        this.eventManager.broadcast({name: 'mediaListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -92,7 +95,7 @@ export class MediaDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -110,14 +113,17 @@ export class MediaPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private mediaPopupService: MediaPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private mediaPopupService: MediaPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['productId']) {
+                this.modalRef = this.mediaPopupService.createMediaForProduct(MediaDialogComponent, params['productId']);
+            }
+
+            if (params['id']) {
                 this.modalRef = this.mediaPopupService
                     .open(MediaDialogComponent, params['id']);
             } else {

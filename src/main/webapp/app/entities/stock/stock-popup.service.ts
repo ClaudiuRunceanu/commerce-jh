@@ -39,7 +39,7 @@ export class StockPopupService {
         }
         this.isOpen = true;
 
-        var stock: Stock;
+        let stock: Stock;
         stock = new Stock();
         stock.productId = id;
         return this.stockModalRef(component, stock);

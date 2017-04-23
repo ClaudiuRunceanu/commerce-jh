@@ -28,6 +28,19 @@ export class MediaPopupService {
         }
     }
 
+    createMediaForProduct(component: Component, id?: number): NgbModalRef {
+        if (this.isOpen) {
+            return;
+        }
+        this.isOpen = true;
+
+        let media: Media;
+        media = new Media();
+        media.productId = id;
+        return this.mediaModalRef(component, media);
+
+    }
+
     mediaModalRef(component: Component, media: Media): NgbModalRef {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.media = media;
