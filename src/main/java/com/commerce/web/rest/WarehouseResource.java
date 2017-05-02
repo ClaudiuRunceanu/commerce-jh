@@ -1,9 +1,8 @@
 package com.commerce.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.commerce.domain.Warehouse;
-
-import com.commerce.repository.WarehouseRepository;
+import com.commerce.service.WarehouseService;
+import com.commerce.service.dto.WarehouseDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +26,11 @@ public class WarehouseResource {
     private final Logger log = LoggerFactory.getLogger(WarehouseResource.class);
 
     private static final String ENTITY_NAME = "warehouse";
-        
-    private final WarehouseRepository warehouseRepository;
 
-    public WarehouseResource(WarehouseRepository warehouseRepository) {
-        this.warehouseRepository = warehouseRepository;
+    private final WarehouseService warehouseService;
+
+    public WarehouseResource(WarehouseService warehouseService) {
+        this.warehouseService = warehouseService;
     }
 
     /**
@@ -43,12 +42,13 @@ public class WarehouseResource {
      */
     @PostMapping("/warehouses")
     @Timed
-    public ResponseEntity<Warehouse> createWarehouse(@Valid @RequestBody Warehouse warehouse) throws URISyntaxException {
+    public ResponseEntity<WarehouseDto> createWarehouse(@Valid @RequestBody WarehouseDto warehouse) throws URISyntaxException {
         log.debug("REST request to save Warehouse : {}", warehouse);
         if (warehouse.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new warehouse cannot already have an ID")).body(null);
         }
-        Warehouse result = warehouseRepository.save(warehouse);
+
+        WarehouseDto result = warehouseService.createNewWarehouse(warehouse);
         return ResponseEntity.created(new URI("/api/warehouses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +65,12 @@ public class WarehouseResource {
      */
     @PutMapping("/warehouses")
     @Timed
-    public ResponseEntity<Warehouse> updateWarehouse(@Valid @RequestBody Warehouse warehouse) throws URISyntaxException {
+    public ResponseEntity<WarehouseDto> updateWarehouse(@Valid @RequestBody WarehouseDto warehouse) throws URISyntaxException {
         log.debug("REST request to update Warehouse : {}", warehouse);
         if (warehouse.getId() == null) {
             return createWarehouse(warehouse);
         }
-        Warehouse result = warehouseRepository.save(warehouse);
+        WarehouseDto result = warehouseService.updateWarehouse(warehouse);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, warehouse.getId().toString()))
             .body(result);
@@ -83,10 +83,9 @@ public class WarehouseResource {
      */
     @GetMapping("/warehouses")
     @Timed
-    public List<Warehouse> getAllWarehouses() {
+    public List<WarehouseDto> getAllWarehouses() {
         log.debug("REST request to get all Warehouses");
-        List<Warehouse> warehouses = warehouseRepository.findAll();
-        return warehouses;
+        return warehouseService.getAllWarehouse();
     }
 
     /**
@@ -97,10 +96,9 @@ public class WarehouseResource {
      */
     @GetMapping("/warehouses/{id}")
     @Timed
-    public ResponseEntity<Warehouse> getWarehouse(@PathVariable Long id) {
+    public ResponseEntity<WarehouseDto> getWarehouse(@PathVariable Long id) {
         log.debug("REST request to get Warehouse : {}", id);
-        Warehouse warehouse = warehouseRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(warehouse));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(warehouseService.findWarehouseById(id)));
     }
 
     /**
@@ -113,7 +111,7 @@ public class WarehouseResource {
     @Timed
     public ResponseEntity<Void> deleteWarehouse(@PathVariable Long id) {
         log.debug("REST request to delete Warehouse : {}", id);
-        warehouseRepository.delete(id);
+        warehouseService.deleteWarehouse(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

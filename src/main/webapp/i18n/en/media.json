@@ -4,6 +4,7 @@
             "home": {
                 "title": "Media",
                 "createLabel": "Create a new Media",
+                "editLabel": "Edit Media",
                 "createOrEditLabel": "Create or edit a Media"
             },
             "created": "A new Media is created with identifier {{ param }}",

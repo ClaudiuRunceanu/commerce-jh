@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A Product.
@@ -46,25 +44,27 @@ public class Product implements Serializable {
     @JoinColumn(unique = true)
     private Price price;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Stock> stocks = new HashSet<>();
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Stock> stocks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Media> media = new HashSet<>();
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Media> media = new ArrayList<>();
 
     @ManyToOne
     private Catalog catalog;
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "product_categories",
                joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="id"))
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -126,11 +126,11 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Set<Stock> getStocks() {
+    public List<Stock> getStocks() {
         return stocks;
     }
 
-    public Product stocks(Set<Stock> stocks) {
+    public Product stocks(List<Stock> stocks) {
         this.stocks = stocks;
         return this;
     }
@@ -147,15 +147,15 @@ public class Product implements Serializable {
         return this;
     }
 
-    public void setStocks(Set<Stock> stocks) {
+    public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
     }
 
-    public Set<Media> getMedia() {
+    public List<Media> getMedia() {
         return media;
     }
 
-    public Product media(Set<Media> media) {
+    public Product media(List<Media> media) {
         this.media = media;
         return this;
     }
@@ -172,7 +172,7 @@ public class Product implements Serializable {
         return this;
     }
 
-    public void setMedia(Set<Media> media) {
+    public void setMedia(List<Media> media) {
         this.media = media;
     }
 
@@ -189,11 +189,11 @@ public class Product implements Serializable {
         this.catalog = catalog;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public Product categories(Set<Category> categories) {
+    public Product categories(List<Category> categories) {
         this.categories = categories;
         return this;
     }
@@ -210,7 +210,7 @@ public class Product implements Serializable {
         return this;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 

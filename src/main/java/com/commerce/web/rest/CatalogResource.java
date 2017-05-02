@@ -1,9 +1,8 @@
 package com.commerce.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.commerce.domain.Catalog;
-
-import com.commerce.repository.CatalogRepository;
+import com.commerce.service.CatalogService;
+import com.commerce.service.dto.CatalogDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +26,12 @@ public class CatalogResource {
     private final Logger log = LoggerFactory.getLogger(CatalogResource.class);
 
     private static final String ENTITY_NAME = "catalog";
-        
-    private final CatalogRepository catalogRepository;
 
-    public CatalogResource(CatalogRepository catalogRepository) {
-        this.catalogRepository = catalogRepository;
+    private final CatalogService catalogService;
+
+
+    public CatalogResource(CatalogService catalogService) {
+        this.catalogService = catalogService;
     }
 
     /**
@@ -43,12 +43,12 @@ public class CatalogResource {
      */
     @PostMapping("/catalogs")
     @Timed
-    public ResponseEntity<Catalog> createCatalog(@Valid @RequestBody Catalog catalog) throws URISyntaxException {
+    public ResponseEntity<CatalogDto> createCatalog(@Valid @RequestBody CatalogDto catalog) throws URISyntaxException {
         log.debug("REST request to save Catalog : {}", catalog);
         if (catalog.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new catalog cannot already have an ID")).body(null);
         }
-        Catalog result = catalogRepository.save(catalog);
+        CatalogDto result = catalogService.createNewCatalog(catalog);
         return ResponseEntity.created(new URI("/api/catalogs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +65,12 @@ public class CatalogResource {
      */
     @PutMapping("/catalogs")
     @Timed
-    public ResponseEntity<Catalog> updateCatalog(@Valid @RequestBody Catalog catalog) throws URISyntaxException {
+    public ResponseEntity<CatalogDto> updateCatalog(@Valid @RequestBody CatalogDto catalog) throws URISyntaxException {
         log.debug("REST request to update Catalog : {}", catalog);
         if (catalog.getId() == null) {
             return createCatalog(catalog);
         }
-        Catalog result = catalogRepository.save(catalog);
+        CatalogDto result = catalogService.updateCatalog(catalog);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, catalog.getId().toString()))
             .body(result);
@@ -83,9 +83,9 @@ public class CatalogResource {
      */
     @GetMapping("/catalogs")
     @Timed
-    public List<Catalog> getAllCatalogs() {
+    public List<CatalogDto> getAllCatalogs() {
         log.debug("REST request to get all Catalogs");
-        List<Catalog> catalogs = catalogRepository.findAll();
+        List<CatalogDto> catalogs = catalogService.getAllCatalogs();
         return catalogs;
     }
 
@@ -97,9 +97,9 @@ public class CatalogResource {
      */
     @GetMapping("/catalogs/{id}")
     @Timed
-    public ResponseEntity<Catalog> getCatalog(@PathVariable Long id) {
+    public ResponseEntity<CatalogDto> getCatalog(@PathVariable Long id) {
         log.debug("REST request to get Catalog : {}", id);
-        Catalog catalog = catalogRepository.findOne(id);
+        CatalogDto catalog = catalogService.findCatalogById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(catalog));
     }
 
@@ -113,7 +113,7 @@ public class CatalogResource {
     @Timed
     public ResponseEntity<Void> deleteCatalog(@PathVariable Long id) {
         log.debug("REST request to delete Catalog : {}", id);
-        catalogRepository.delete(id);
+        catalogService.deleteCatalog(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

@@ -84,13 +84,13 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="commerceApp.product.price" for="field_priceValue">PriceValue</label>
-            <input type="number" min="1" step="any" class="form-control" name="priceValue" id="field_priceValue" [(ngModel)]="product.priceValue"/>
+            <input type="number" min="1" step="any" class="form-control" name="priceValue" id="field_priceValue" [(ngModel)]="product.price.value"/>
         </div>
         <div class="form-group">
             <label jhiTranslate="commerceApp.product.currency" for="field_currency">Currency</label>
-            <select class="form-control" id="field_currency" name="currency" [(ngModel)]="product.currency" >
+            <select class="form-control" id="field_currency" name="currency" [(ngModel)]="product.price.currency" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="currencyOption.id === product.currency?.id ? product.currency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.name}}</option>
+                <option [ngValue]="currencyOption.id === product.price.currency?.id ? product.price.currency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.name}}</option>
             </select>
         </div>
 

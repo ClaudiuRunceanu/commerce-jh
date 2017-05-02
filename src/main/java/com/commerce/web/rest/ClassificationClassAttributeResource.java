@@ -1,9 +1,8 @@
 package com.commerce.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.commerce.domain.ClassificationClassAttribute;
-
-import com.commerce.repository.ClassificationClassAttributeRepository;
+import com.commerce.service.ClassificationClassAttributeService;
+import com.commerce.service.dto.ClassificationClassAttributeDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +26,11 @@ public class ClassificationClassAttributeResource {
     private final Logger log = LoggerFactory.getLogger(ClassificationClassAttributeResource.class);
 
     private static final String ENTITY_NAME = "classificationClassAttribute";
-        
-    private final ClassificationClassAttributeRepository classificationClassAttributeRepository;
 
-    public ClassificationClassAttributeResource(ClassificationClassAttributeRepository classificationClassAttributeRepository) {
-        this.classificationClassAttributeRepository = classificationClassAttributeRepository;
+    private final ClassificationClassAttributeService classificationClassAttributeService;
+
+    public ClassificationClassAttributeResource(ClassificationClassAttributeService classificationClassAttributeService) {
+        this.classificationClassAttributeService = classificationClassAttributeService;
     }
 
     /**
@@ -43,12 +42,12 @@ public class ClassificationClassAttributeResource {
      */
     @PostMapping("/classification-class-attributes")
     @Timed
-    public ResponseEntity<ClassificationClassAttribute> createClassificationClassAttribute(@Valid @RequestBody ClassificationClassAttribute classificationClassAttribute) throws URISyntaxException {
+    public ResponseEntity<ClassificationClassAttributeDto> createClassificationClassAttribute(@Valid @RequestBody ClassificationClassAttributeDto classificationClassAttribute) throws URISyntaxException {
         log.debug("REST request to save ClassificationClassAttribute : {}", classificationClassAttribute);
         if (classificationClassAttribute.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new classificationClassAttribute cannot already have an ID")).body(null);
         }
-        ClassificationClassAttribute result = classificationClassAttributeRepository.save(classificationClassAttribute);
+        ClassificationClassAttributeDto result = classificationClassAttributeService.createNewClassification(classificationClassAttribute);
         return ResponseEntity.created(new URI("/api/classification-class-attributes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +64,12 @@ public class ClassificationClassAttributeResource {
      */
     @PutMapping("/classification-class-attributes")
     @Timed
-    public ResponseEntity<ClassificationClassAttribute> updateClassificationClassAttribute(@Valid @RequestBody ClassificationClassAttribute classificationClassAttribute) throws URISyntaxException {
+    public ResponseEntity<ClassificationClassAttributeDto> updateClassificationClassAttribute(@Valid @RequestBody ClassificationClassAttributeDto classificationClassAttribute) throws URISyntaxException {
         log.debug("REST request to update ClassificationClassAttribute : {}", classificationClassAttribute);
         if (classificationClassAttribute.getId() == null) {
             return createClassificationClassAttribute(classificationClassAttribute);
         }
-        ClassificationClassAttribute result = classificationClassAttributeRepository.save(classificationClassAttribute);
+        ClassificationClassAttributeDto result = classificationClassAttributeService.updateClassification(classificationClassAttribute);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, classificationClassAttribute.getId().toString()))
             .body(result);
@@ -83,9 +82,9 @@ public class ClassificationClassAttributeResource {
      */
     @GetMapping("/classification-class-attributes")
     @Timed
-    public List<ClassificationClassAttribute> getAllClassificationClassAttributes() {
+    public List<ClassificationClassAttributeDto> getAllClassificationClassAttributes() {
         log.debug("REST request to get all ClassificationClassAttributes");
-        List<ClassificationClassAttribute> classificationClassAttributes = classificationClassAttributeRepository.findAll();
+        List<ClassificationClassAttributeDto> classificationClassAttributes = classificationClassAttributeService.getAllClassifications();
         return classificationClassAttributes;
     }
 
@@ -97,9 +96,9 @@ public class ClassificationClassAttributeResource {
      */
     @GetMapping("/classification-class-attributes/{id}")
     @Timed
-    public ResponseEntity<ClassificationClassAttribute> getClassificationClassAttribute(@PathVariable Long id) {
+    public ResponseEntity<ClassificationClassAttributeDto> getClassificationClassAttribute(@PathVariable Long id) {
         log.debug("REST request to get ClassificationClassAttribute : {}", id);
-        ClassificationClassAttribute classificationClassAttribute = classificationClassAttributeRepository.findOne(id);
+        ClassificationClassAttributeDto classificationClassAttribute = classificationClassAttributeService.findClassificationById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(classificationClassAttribute));
     }
 
@@ -113,7 +112,7 @@ public class ClassificationClassAttributeResource {
     @Timed
     public ResponseEntity<Void> deleteClassificationClassAttribute(@PathVariable Long id) {
         log.debug("REST request to delete ClassificationClassAttribute : {}", id);
-        classificationClassAttributeRepository.delete(id);
+        classificationClassAttributeService.deleteClassification(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

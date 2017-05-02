@@ -2,12 +2,11 @@ package com.commerce.service;
 
 import com.commerce.domain.Product;
 import com.commerce.repository.ProductRepository;
-import com.commerce.service.dto.ProductDTO;
+import com.commerce.service.dto.ProductDto;
 import com.commerce.service.mapper.ProductConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,22 +24,22 @@ public class ProductService {
         this.productConverter = productConverter;
     }
 
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductDto> getAllProducts() {
         List<Product> productModels = this.productRepository.findAllWithEagerRelationships();
         return productConverter.getProductDataList(productModels);
     }
 
-    public Product saveNewProduct(ProductDTO productDTO){
-        Product product=this.productConverter.getProductModel(productDTO);
-        return this.productRepository.save(product);
+    public ProductDto saveNewProduct(ProductDto productDTO) {
+        Product product = this.productRepository.save(this.productConverter.getProductModel(productDTO));
+        return this.productConverter.getProductData(product);
     }
 
-    public void deleteProductById(Long id){
+    public void deleteProductById(Long id) {
         this.productRepository.delete(id);
     }
 
-    public ProductDTO getProductById(Long id){
-     Product product = this.productRepository.findOneWithEagerRelationships(id);
+    public ProductDto getProductById(Long id) {
+        Product product = this.productRepository.findOneWithEagerRelationships(id);
         return this.productConverter.getProductData(product);
     }
 

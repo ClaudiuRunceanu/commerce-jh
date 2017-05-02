@@ -4,7 +4,7 @@ import com.commerce.domain.Price;
 import com.commerce.domain.Product;
 import com.commerce.domain.Stock;
 import com.commerce.repository.StockRepository;
-import com.commerce.service.dto.ProductDTO;
+import com.commerce.service.dto.ProductDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,42 +17,47 @@ import java.util.List;
 public class ProductConverter {
 
     private StockConverter stockConverter;
+    private CurrencyConverter currencyConverter;
+    private CategoryConverter categoryConverter;
+    private MediaConverter mediaConverter;
     private StockRepository stockRepository;
+    private PriceConverter priceConverter;
 
-    public ProductConverter(StockConverter stockConverter, StockRepository stockRepository) {
+    public ProductConverter(StockConverter stockConverter, CurrencyConverter currencyConverter, CategoryConverter categoryConverter, MediaConverter mediaConverter, StockRepository stockRepository, PriceConverter priceConverter) {
         this.stockConverter = stockConverter;
+        this.currencyConverter = currencyConverter;
+        this.categoryConverter = categoryConverter;
+        this.mediaConverter = mediaConverter;
         this.stockRepository = stockRepository;
+        this.priceConverter = priceConverter;
     }
 
-    public ProductDTO getProductData(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-
+    public ProductDto getProductData(Product product) {
+        ProductDto productDTO = new ProductDto();
         productDTO.setCatalog(product.getCatalog());
         productDTO.setCode(product.getCode());
         productDTO.setId(product.getId());
         productDTO.setName(product.getName());
-        productDTO.setMedia(product.getMedia());
-//        productDTO.setPrice(product.getPrice());
         productDTO.setDescription(product.getDescription());
-        productDTO.setCategories(product.getCategories());
 
+        populateDataWithCategoriesDetail(product, productDTO);
+        populateDataWithMediaDetail(product, productDTO);
         populateDataWithStockDetail(product, productDTO);
         populateDataWithPriceDetail(product, productDTO);
-
 
         return productDTO;
     }
 
-    public List<ProductDTO> getProductDataList(List<Product> productModels) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
+    public List<ProductDto> getProductDataList(List<Product> productModels) {
+        List<ProductDto> productDTOList = new ArrayList<>();
         for (Product product : productModels) {
-            ProductDTO productDTO = getProductData(product);
+            ProductDto productDTO = getProductData(product);
             productDTOList.add(productDTO);
         }
         return productDTOList;
     }
 
-    public Product getProductModel(ProductDTO productDTO) {
+    public Product getProductModel(ProductDto productDTO) {
         Product product = new Product();
         if (productDTO.getId() != null) {
             product.setId(productDTO.getId());
@@ -61,34 +66,41 @@ public class ProductConverter {
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setCatalog(productDTO.getCatalog());
-        product.setCategories(productDTO.getCategories());
         //stocks
         //media
+
+        populateModelWithCategoriesDetail(productDTO, product);
         populateModelWithPriceDetail(productDTO, product);
         return product;
     }
 
-    private void populateModelWithPriceDetail(ProductDTO productDTO, Product product) {
-        Price price = new Price();
-        price.setValue(productDTO.getPriceValue());
-        price.setCurrency(productDTO.getCurrency());
-        product.setPrice(price);
+    private void populateModelWithCategoriesDetail(ProductDto productDTO, Product product) {
+        product.setCategories(categoryConverter.getCategoryModelList(productDTO.getCategories()));
     }
 
-    private void populateDataWithPriceDetail(Product product, ProductDTO productDTO) {
-        if (product.getPrice() != null) {
-            productDTO.setPriceValue(product.getPrice().getValue());
+    private void populateModelWithPriceDetail(ProductDto productDTO, Product product) {
+        product.setPrice(priceConverter.getPriceModel(productDTO.getPrice()));
+    }
 
-            if (product.getPrice().getCurrency() != null) {
-                productDTO.setCurrencySymbol(product.getPrice().getCurrency().getSymbol());
-                productDTO.setCurrency(product.getPrice().getCurrency());
-            }
+    private void populateDataWithPriceDetail(Product product, ProductDto productDTO) {
+        if (product.getPrice() != null) {
+            productDTO.setPrice(priceConverter.getPriceData(product.getPrice()));
         }
     }
 
-    private void populateDataWithStockDetail(Product product, ProductDTO productDTO) {
+    private void populateDataWithStockDetail(Product product, ProductDto productDTO) {
         List<Stock> stocks = this.stockRepository.findStockByProduct(product);
         productDTO.setStocks(this.stockConverter.getStockDataList(stocks));
+    }
+
+    private void populateDataWithCategoriesDetail(Product product, ProductDto productDTO) {
+        productDTO.setCategories(categoryConverter.getCategoryDataList(product.getCategories()));
+    }
+
+    private void populateDataWithMediaDetail(Product product, ProductDto productDTO) {
+        if (product.getMedia() != null) {
+            productDTO.setMedia(mediaConverter.getMediaDataList(product.getMedia()));
+        }
     }
 
 }

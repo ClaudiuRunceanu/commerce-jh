@@ -72,14 +72,14 @@ public class StockResource {
      */
     @PutMapping("/stocks")
     @Timed
-    public ResponseEntity<Stock> updateStock(@Valid @RequestBody Stock stock) throws URISyntaxException {
+    public ResponseEntity<StockDto> updateStock(@Valid @RequestBody StockDto stock) throws URISyntaxException {
         log.debug("REST request to update Stock : {}", stock);
 
-        // tempoarary hack
-//        if (stock.getId() == null) {
-//            return createStock(stock);
-//        }
-        Stock result = stockRepository.save(stock);
+
+        if (stock.getId() == null) {
+            return createStock(stock);
+        }
+        StockDto result = stockService.updateStock(stock);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, stock.getId().toString()))
             .body(result);
@@ -92,9 +92,9 @@ public class StockResource {
      */
     @GetMapping("/stocks")
     @Timed
-    public List<Stock> getAllStocks() {
+    public List<StockDto> getAllStocks() {
         log.debug("REST request to get all Stocks");
-        List<Stock> stocks = stockRepository.findAll();
+        List<StockDto> stocks = stockService.getAllStocks();
         return stocks;
     }
 
@@ -106,9 +106,9 @@ public class StockResource {
      */
     @GetMapping("/stocks/{id}")
     @Timed
-    public ResponseEntity<Stock> getStock(@PathVariable Long id) {
+    public ResponseEntity<StockDto> getStock(@PathVariable Long id) {
         log.debug("REST request to get Stock : {}", id);
-        Stock stock = stockRepository.findOne(id);
+        StockDto stock = stockService.getStockById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stock));
     }
 
@@ -122,7 +122,7 @@ public class StockResource {
     @Timed
     public ResponseEntity<Void> deleteStock(@PathVariable Long id) {
         log.debug("REST request to delete Stock : {}", id);
-        stockRepository.delete(id);
+        stockService.deleteStock(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

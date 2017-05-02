@@ -30,6 +30,15 @@
         <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
+    <button type="submit"
+            [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/delete'} }]"
+            replaceUrl="true"
+            class="btn btn-danger">
+        <span class="fa fa-remove"></span>
+        <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+    </button>
+
+
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/edit'} }]"
             replaceUrl="true"

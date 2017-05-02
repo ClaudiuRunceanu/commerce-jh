@@ -35,6 +35,7 @@ public class Media implements Serializable {
     @NotNull
     @Lob
     @Column(name = "image", nullable = false)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private byte[] image;
 
     @Column(name = "image_content_type", nullable = false)

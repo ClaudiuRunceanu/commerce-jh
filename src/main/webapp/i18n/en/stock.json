@@ -4,6 +4,7 @@
             "home": {
                 "title": "Stocks",
                 "createLabel": "Create a new Stock",
+                "editLabel": "Edit a Stock",
                 "createOrEditLabel": "Create or edit a Stock"
             },
             "created": "A new Stock is created with identifier {{ param }}",
@@ -46,7 +47,8 @@
             "media": "Media",
             "catalog": "Catalog",
             "categories": "Categories",
-            "createStock": "Create stock"
+            "createStock": "Create stock",
+            "createMedia": "Create media"
         }
     }
 }

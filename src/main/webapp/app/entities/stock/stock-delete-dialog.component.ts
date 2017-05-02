@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +20,7 @@ export class StockDeleteDialogComponent {
     constructor(
         private jhiLanguageService: JhiLanguageService,
         private stockService: StockService,
+        private router: Router,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
@@ -32,11 +34,17 @@ export class StockDeleteDialogComponent {
     confirmDelete (id: number) {
         this.stockService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
+                name: 'productListModification',
+                content: 'Deleted an stock'
+            });
+            this.eventManager.broadcast({
                 name: 'stockListModification',
                 content: 'Deleted an stock'
             });
             this.activeModal.dismiss(true);
         });
+
+        this.router.navigateByUrl('product');
     }
 }
 

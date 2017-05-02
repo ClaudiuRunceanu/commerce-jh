@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.Currency;
 
 import com.commerce.repository.CurrencyRepository;
+import com.commerce.service.CurrencyService;
+import com.commerce.service.dto.CurrencyDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +29,11 @@ public class CurrencyResource {
     private final Logger log = LoggerFactory.getLogger(CurrencyResource.class);
 
     private static final String ENTITY_NAME = "currency";
-        
-    private final CurrencyRepository currencyRepository;
 
-    public CurrencyResource(CurrencyRepository currencyRepository) {
-        this.currencyRepository = currencyRepository;
+    private final CurrencyService currencyService;
+
+    public CurrencyResource(CurrencyService currencyService) {
+        this.currencyService = currencyService;
     }
 
     /**
@@ -43,12 +45,12 @@ public class CurrencyResource {
      */
     @PostMapping("/currencies")
     @Timed
-    public ResponseEntity<Currency> createCurrency(@Valid @RequestBody Currency currency) throws URISyntaxException {
+    public ResponseEntity<CurrencyDto> createCurrency(@Valid @RequestBody CurrencyDto currency) throws URISyntaxException {
         log.debug("REST request to save Currency : {}", currency);
         if (currency.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new currency cannot already have an ID")).body(null);
         }
-        Currency result = currencyRepository.save(currency);
+        CurrencyDto result = currencyService.createNewCurrency(currency);
         return ResponseEntity.created(new URI("/api/currencies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +67,12 @@ public class CurrencyResource {
      */
     @PutMapping("/currencies")
     @Timed
-    public ResponseEntity<Currency> updateCurrency(@Valid @RequestBody Currency currency) throws URISyntaxException {
+    public ResponseEntity<CurrencyDto> updateCurrency(@Valid @RequestBody CurrencyDto currency) throws URISyntaxException {
         log.debug("REST request to update Currency : {}", currency);
         if (currency.getId() == null) {
             return createCurrency(currency);
         }
-        Currency result = currencyRepository.save(currency);
+        CurrencyDto result = currencyService.updateCurrency(currency);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, currency.getId().toString()))
             .body(result);
@@ -83,9 +85,9 @@ public class CurrencyResource {
      */
     @GetMapping("/currencies")
     @Timed
-    public List<Currency> getAllCurrencies() {
+    public List<CurrencyDto> getAllCurrencies() {
         log.debug("REST request to get all Currencies");
-        List<Currency> currencies = currencyRepository.findAll();
+        List<CurrencyDto> currencies = currencyService.getAllCurrencies();
         return currencies;
     }
 
@@ -97,9 +99,9 @@ public class CurrencyResource {
      */
     @GetMapping("/currencies/{id}")
     @Timed
-    public ResponseEntity<Currency> getCurrency(@PathVariable Long id) {
+    public ResponseEntity<CurrencyDto> getCurrency(@PathVariable Long id) {
         log.debug("REST request to get Currency : {}", id);
-        Currency currency = currencyRepository.findOne(id);
+        CurrencyDto currency = currencyService.findCurrencyById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(currency));
     }
 
@@ -113,7 +115,7 @@ public class CurrencyResource {
     @Timed
     public ResponseEntity<Void> deleteCurrency(@PathVariable Long id) {
         log.debug("REST request to delete Currency : {}", id);
-        currencyRepository.delete(id);
+        currencyService.deleteCurrency(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

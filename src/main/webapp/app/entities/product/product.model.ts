@@ -15,9 +15,7 @@ export class Product {
         public media?: Media,
         public catalog?: Catalog,
         public categories?: Category,
-        public priceValue?: number,
-        public currency?: Currency,
-        public currencySymbol?: string,
+
     ) {
     }
 }

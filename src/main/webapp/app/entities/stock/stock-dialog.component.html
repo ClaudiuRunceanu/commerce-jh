@@ -1,7 +1,13 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myStockLabel" jhiTranslate="commerceApp.stock.home.createOrEditLabel">Create or edit a Stock</h4>
+        <div *ngIf="stock.id">
+            <h4 class="modal-title" id="myStockLabelForEdit" jhiTranslate="commerceApp.stock.home.editLabel">Create or edit a Stock</h4>
+        </div>
+        <div *ngIf="!stock.id">
+            <h4 class="modal-title" id="myStockLabelForCreate" jhiTranslate="commerceApp.stock.home.createLabel">Create or edit a Stock</h4>
+        </div>
+
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
@@ -103,16 +109,16 @@
             <label jhiTranslate="commerceApp.stock.warehouse" for="field_warehouse">Warehouse</label>
             <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="stock.warehouse" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="warehouseOption.id === stock.warehouse?.id ? stock.warehouse : warehouseOption" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.id}}</option>
+                <option [ngValue]="warehouseOption.id === stock.warehouse?.id ? stock.warehouse : warehouseOption" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
             </select>
         </div>
-        <div class="form-group">
-            <label jhiTranslate="commerceApp.stock.product" for="field_product">Product</label>
-            <select class="form-control" id="field_product" name="product" [(ngModel)]="stock.product" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="productOption.id === stock.product?.id ? stock.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>
-            </select>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label jhiTranslate="commerceApp.stock.product" for="field_product">Product</label>-->
+            <!--<select class="form-control" id="field_product" name="product" [(ngModel)]="stock.product" >-->
+                <!--<option [ngValue]="null"></option>-->
+                <!--<option [ngValue]="productOption.id === stock.product?.id ? stock.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>-->
+            <!--</select>-->
+        <!--</div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

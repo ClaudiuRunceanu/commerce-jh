@@ -22,6 +22,9 @@ public class StockConverter {
 
     public Stock getStockModel(StockDto stockDto) {
         Stock stock = new Stock();
+        if(stockDto.getId()!=null){
+            stock.setId(stockDto.getId());
+        }
         stock.setAvailable(stockDto.getAvailable());
         stock.setPreOrder(stockDto.getPreOrder());
         stock.setReserved(stockDto.getReserved());
@@ -43,6 +46,9 @@ public class StockConverter {
         stockDto.setId(stock.getId());
         stockDto.setExpireDate(stock.getExpireDate());
         stockDto.setCreationDate(stock.getCreationDate());
+        if(stock.getProduct()!=null){
+            stockDto.setProductId(stock.getProduct().getId());
+        }
 
         return stockDto;
     }

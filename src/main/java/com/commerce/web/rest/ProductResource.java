@@ -1,11 +1,9 @@
 package com.commerce.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.commerce.domain.Product;
 
-import com.commerce.repository.ProductRepository;
 import com.commerce.service.ProductService;
-import com.commerce.service.dto.ProductDTO;
+import com.commerce.service.dto.ProductDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -46,13 +44,13 @@ public class ProductResource {
      */
     @PostMapping("/products")
     @Timed
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDTO product) throws URISyntaxException {
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductDto product) throws URISyntaxException {
         log.debug("REST request to save Product : {}", product);
         if (product.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new product cannot already have an ID")).body(null);
         }
        // Product result = productRepository.save(product);
-        Product result = productService.saveNewProduct(product);
+        ProductDto result = productService.saveNewProduct(product);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -69,13 +67,13 @@ public class ProductResource {
      */
     @PutMapping("/products")
     @Timed
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO product) throws URISyntaxException {
+    public ResponseEntity<ProductDto> updateProduct(@Valid @RequestBody ProductDto product) throws URISyntaxException {
         log.debug("REST request to update Product : {}", product);
         if (product.getId() == null) {
             return createProduct(product);
         }
      //   Product result = productRepository.save(new Product());
-        Product result = productService.saveNewProduct(product);
+        ProductDto result = productService.saveNewProduct(product);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, product.getId().toString()))
             .body(result);
@@ -88,7 +86,7 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductDto> getAllProducts() {
         log.debug("REST request to get all Products");
 //        List<Product> products = productRepository.findAllWithEagerRelationships();
         return productService.getAllProducts();
@@ -103,7 +101,7 @@ public class ProductResource {
      */
     @GetMapping("/products/{id}")
     @Timed
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
         log.debug("REST request to get Product : {}", id);
        // Product product = productRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productService.getProductById(id)));

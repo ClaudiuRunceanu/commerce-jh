@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from './product.model';
 import { ProductService } from './product.service';
+import {Price} from "../price/price.model";
 @Injectable()
 export class ProductPopupService {
     private isOpen = false;
@@ -24,7 +25,10 @@ export class ProductPopupService {
                 this.productModalRef(component, product);
             });
         } else {
-            return this.productModalRef(component, new Product());
+            let price=new Price();
+            let product=new Product();
+            product.price=price;
+            return this.productModalRef(component, product);
         }
     }
 

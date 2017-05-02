@@ -81,6 +81,7 @@ export class MediaDialogComponent implements OnInit {
 
     private onSaveSuccess(result: Media) {
         this.eventManager.broadcast({name: 'mediaListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'productListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }

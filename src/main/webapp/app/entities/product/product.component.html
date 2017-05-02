@@ -20,12 +20,13 @@
                 <th><span jhiTranslate="global.field.id">ID</span></th>
                 <th><span jhiTranslate="commerceApp.product.code">Code</span></th>
                 <th><span jhiTranslate="commerceApp.product.name">Name</span></th>
-                <th><span jhiTranslate="commerceApp.product.description">Description</span></th>
+                <!--<th><span jhiTranslate="commerceApp.product.description">Description</span></th>-->
                 <!--<th><span jhiTranslate="commerceApp.product.price">Price</span></th>-->
                 <th><span jhiTranslate="commerceApp.product.catalog">Catalog</span></th>
                 <th><span jhiTranslate="commerceApp.product.categories">Categories</span></th>
                 <th><span jhiTranslate="commerceApp.product.price">Price</span></th>
                 <th><span jhiTranslate="commerceApp.product.stocks">Stock</span></th>
+                <th><span jhiTranslate="commerceApp.product.media">Media</span></th>
                 <th></th>
             </tr>
             </thead>
@@ -34,7 +35,7 @@
                 <td><a [routerLink]="['../product', product.id ]">{{product.id}}</a></td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
+                <!--<td>{{product.description}}</td>-->
                 <!--<td>-->
                     <!--<div *ngIf="product.price">-->
                         <!--<a [routerLink]="['../price', product.price?.id ]">{{product.price?.id}}</a>-->
@@ -50,10 +51,17 @@
                             <a class="form-control-static" [routerLink]="['../category', categories?.id ]">{{categories?.name}}</a>{{last ? '' : ', '}}
                         </span>
                 </td>
-                <td>{{product.priceValue}} {{product.currencySymbol}}</td>
+                <td>{{product.price.value}} {{product.price.currency.symbol}}</td>
                 <td>
                     <span *ngFor="let stocks of product.stocks; let last = last">
                             <a class="form-control-static" [routerLink]="['../stock', stocks?.id ]">{{stocks?.available}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td>
+                    <span *ngFor="let media of product.media; let last = last">
+                            <a class="form-control-static" [routerLink]="['../media', media?.id ]">
+                                {{media?.title}}
+                            </a>{{last ? '' : ', '}}
                         </span>
                 </td>
                 <td class="text-right">

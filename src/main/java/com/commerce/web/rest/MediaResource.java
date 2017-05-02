@@ -71,14 +71,12 @@ public class MediaResource {
      */
     @PutMapping("/media")
     @Timed
-    public ResponseEntity<Media> updateMedia(@Valid @RequestBody Media media) throws URISyntaxException {
+    public ResponseEntity<MediaDto> updateMedia(@Valid @RequestBody MediaDto media) throws URISyntaxException {
         log.debug("REST request to update Media : {}", media);
-        //temporary hack
-//        if (media.getId() == null) {
-        //  return createMedia(media);
-
-//        }
-        Media result = mediaRepository.save(media);
+        if (media.getId() == null) {
+            return createMedia(media);
+        }
+        MediaDto result = mediaService.updateMedia(media);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, media.getId().toString()))
             .body(result);
@@ -91,9 +89,9 @@ public class MediaResource {
      */
     @GetMapping("/media")
     @Timed
-    public List<Media> getAllMedia() {
+    public List<MediaDto> getAllMedia() {
         log.debug("REST request to get all Media");
-        List<Media> media = mediaRepository.findAll();
+        List<MediaDto> media = mediaService.getAllMedia();
         return media;
     }
 
@@ -105,9 +103,9 @@ public class MediaResource {
      */
     @GetMapping("/media/{id}")
     @Timed
-    public ResponseEntity<Media> getMedia(@PathVariable Long id) {
+    public ResponseEntity<MediaDto> getMedia(@PathVariable Long id) {
         log.debug("REST request to get Media : {}", id);
-        Media media = mediaRepository.findOne(id);
+        MediaDto media = mediaService.findMediaById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(media));
     }
 
@@ -121,7 +119,7 @@ public class MediaResource {
     @Timed
     public ResponseEntity<Void> deleteMedia(@PathVariable Long id) {
         log.debug("REST request to delete Media : {}", id);
-        mediaRepository.delete(id);
+        mediaService.deleteMedia(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

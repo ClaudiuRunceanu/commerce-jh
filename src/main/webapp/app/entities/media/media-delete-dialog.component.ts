@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {Router} from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
@@ -19,6 +20,7 @@ export class MediaDeleteDialogComponent {
     constructor(
         private jhiLanguageService: JhiLanguageService,
         private mediaService: MediaService,
+        private router: Router,
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
@@ -35,8 +37,14 @@ export class MediaDeleteDialogComponent {
                 name: 'mediaListModification',
                 content: 'Deleted an media'
             });
+            this.eventManager.broadcast({
+                name: 'productListModification',
+                content: 'Deleted an media'
+            });
             this.activeModal.dismiss(true);
         });
+
+        this.router.navigateByUrl('product');
     }
 }
 

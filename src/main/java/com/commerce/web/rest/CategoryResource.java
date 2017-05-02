@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.Category;
 
 import com.commerce.repository.CategoryRepository;
+import com.commerce.service.CategoryService;
+import com.commerce.service.dto.CategoryDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +29,11 @@ public class CategoryResource {
     private final Logger log = LoggerFactory.getLogger(CategoryResource.class);
 
     private static final String ENTITY_NAME = "category";
-        
-    private final CategoryRepository categoryRepository;
 
-    public CategoryResource(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private final CategoryService categoryService;
+
+    public CategoryResource(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     /**
@@ -43,12 +45,12 @@ public class CategoryResource {
      */
     @PostMapping("/categories")
     @Timed
-    public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) throws URISyntaxException {
+    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto category) throws URISyntaxException {
         log.debug("REST request to save Category : {}", category);
         if (category.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new category cannot already have an ID")).body(null);
         }
-        Category result = categoryRepository.save(category);
+        CategoryDto result = categoryService.createNewCategory(category);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +67,12 @@ public class CategoryResource {
      */
     @PutMapping("/categories")
     @Timed
-    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) throws URISyntaxException {
+    public ResponseEntity<CategoryDto> updateCategory(@Valid @RequestBody CategoryDto category) throws URISyntaxException {
         log.debug("REST request to update Category : {}", category);
         if (category.getId() == null) {
             return createCategory(category);
         }
-        Category result = categoryRepository.save(category);
+        CategoryDto result = categoryService.updateCategory(category);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, category.getId().toString()))
             .body(result);
@@ -83,9 +85,9 @@ public class CategoryResource {
      */
     @GetMapping("/categories")
     @Timed
-    public List<Category> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
         log.debug("REST request to get all Categories");
-        List<Category> categories = categoryRepository.findAll();
+        List<CategoryDto> categories = categoryService.getAllCategories();
         return categories;
     }
 
@@ -97,9 +99,9 @@ public class CategoryResource {
      */
     @GetMapping("/categories/{id}")
     @Timed
-    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+    public ResponseEntity<CategoryDto> getCategory(@PathVariable Long id) {
         log.debug("REST request to get Category : {}", id);
-        Category category = categoryRepository.findOne(id);
+        CategoryDto category = categoryService.findCategoryById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(category));
     }
 
@@ -113,7 +115,7 @@ public class CategoryResource {
     @Timed
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         log.debug("REST request to delete Category : {}", id);
-        categoryRepository.delete(id);
+        categoryService.deleteCategory(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
