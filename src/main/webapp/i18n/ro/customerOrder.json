@@ -1,0 +1,31 @@
+{
+    "commerceApp": {
+        "customerOrder" : {
+            "home": {
+                "title": "Customer Orders",
+                "createLabel": "Crează o nouă Customer Order",
+                "createOrEditLabel": "Crează sau editează o Customer Order"
+            },
+            "created": "O nouă Customer Order este creată cu identificatorul {{ param }}",
+            "updated": "O Customer Order este editată cu identificatorul {{ param }}",
+            "deleted": "O Customer Order este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Customer Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Order"
+            },
+            "code": "Code",
+            "date": "Date",
+            "totalCost": "Total Cost",
+            "status": "Status",
+            "taxCost": "Tax Cost",
+            "paymentCost": "Payment Cost",
+            "deliveryCost": "Delivery Cost",
+            "discountValue": "Discount Value",
+            "discountPercentage": "Discount Percentage",
+            "entries": "Entries",
+            "user": "User"
+        }
+    }
+}

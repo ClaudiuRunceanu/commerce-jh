@@ -1,0 +1,24 @@
+{
+    "commerceApp": {
+        "customFilter" : {
+            "home": {
+                "title": "Custom Filters",
+                "createLabel": "Create a new Custom Filter",
+                "createOrEditLabel": "Create or edit a Custom Filter"
+            },
+            "created": "A new Custom Filter is created with identifier {{ param }}",
+            "updated": "A Custom Filter is updated with identifier {{ param }}",
+            "deleted": "A Custom Filter is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Custom Filter {{ id }}?"
+            },
+            "detail": {
+                "title": "Custom Filter"
+            },
+            "name": "Name",
+            "value": "Value",
+            "displayValue": "Display Value",
+            "active": "Active"
+        }
+    }
+}

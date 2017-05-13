@@ -4,61 +4,58 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Product } from './product.model';
-import { ProductService } from './product.service';
+import { CustomerOrder } from './customer-order.model';
+import { CustomerOrderService } from './customer-order.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-product',
-    templateUrl: './product.component.html'
+    selector: 'jhi-customer-order',
+    templateUrl: './customer-order.component.html'
 })
-export class ProductComponent implements OnInit, OnDestroy {
-products: Product[];
+export class CustomerOrderComponent implements OnInit, OnDestroy {
+customerOrders: CustomerOrder[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private productService: ProductService,
+        private customerOrderService: CustomerOrderService,
         private alertService: AlertService,
         private eventManager: EventManager,
         private principal: Principal
     ) {
-        this.jhiLanguageService.setLocations(['product']);
+        this.jhiLanguageService.setLocations(['customerOrder', 'orderStatus']);
     }
 
     loadAll() {
-        this.productService.query().subscribe(
+        this.customerOrderService.query().subscribe(
             (res: Response) => {
-                this.products = res.json();
-                console.log("products: ");
-                console.log(this.products);
+                this.customerOrders = res.json();
             },
             (res: Response) => this.onError(res.json())
         );
     }
     ngOnInit() {
-        console.log("am intrat in product init");
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInProducts();
+        this.registerChangeInCustomerOrders();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Product) {
+    trackId (index: number, item: CustomerOrder) {
         return item.id;
     }
 
 
 
-    registerChangeInProducts() {
-        this.eventSubscriber = this.eventManager.subscribe('productListModification', (response) => this.loadAll());
+    registerChangeInCustomerOrders() {
+        this.eventSubscriber = this.eventManager.subscribe('customerOrderListModification', (response) => this.loadAll());
     }
 
 

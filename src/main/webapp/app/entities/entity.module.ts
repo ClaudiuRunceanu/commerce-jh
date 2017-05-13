@@ -9,6 +9,10 @@ import { CommerceStockModule } from './stock/stock.module';
 import { CommerceWarehouseModule } from './warehouse/warehouse.module';
 import { CommerceProductModule } from './product/product.module';
 import { CommerceMediaModule } from './media/media.module';
+import { CommerceCustomFilterModule } from './custom-filter/custom-filter.module';
+import { CommerceOrderEntryModule } from './order-entry/order-entry.module';
+import { CommerceCartModule } from './cart/cart.module';
+import { CommerceCustomerOrderModule } from './customer-order/customer-order.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -22,6 +26,10 @@ import { CommerceMediaModule } from './media/media.module';
         CommerceWarehouseModule,
         CommerceProductModule,
         CommerceMediaModule,
+        CommerceCustomFilterModule,
+        CommerceOrderEntryModule,
+        CommerceCartModule,
+        CommerceCustomerOrderModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

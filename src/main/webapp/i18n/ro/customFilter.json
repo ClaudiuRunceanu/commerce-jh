@@ -1,0 +1,24 @@
+{
+    "commerceApp": {
+        "customFilter" : {
+            "home": {
+                "title": "Custom Filters",
+                "createLabel": "Crează o nouă Custom Filter",
+                "createOrEditLabel": "Crează sau editează o Custom Filter"
+            },
+            "created": "O nouă Custom Filter este creată cu identificatorul {{ param }}",
+            "updated": "O Custom Filter este editată cu identificatorul {{ param }}",
+            "deleted": "O Custom Filter este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Custom Filter {{ id }}?"
+            },
+            "detail": {
+                "title": "Custom Filter"
+            },
+            "name": "Name",
+            "value": "Value",
+            "displayValue": "Display Value",
+            "active": "Active"
+        }
+    }
+}

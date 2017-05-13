@@ -4,61 +4,58 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Product } from './product.model';
-import { ProductService } from './product.service';
+import { Cart } from './cart.model';
+import { CartService } from './cart.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-product',
-    templateUrl: './product.component.html'
+    selector: 'jhi-cart',
+    templateUrl: './cart.component.html'
 })
-export class ProductComponent implements OnInit, OnDestroy {
-products: Product[];
+export class CartComponent implements OnInit, OnDestroy {
+carts: Cart[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private productService: ProductService,
+        private cartService: CartService,
         private alertService: AlertService,
         private eventManager: EventManager,
         private principal: Principal
     ) {
-        this.jhiLanguageService.setLocations(['product']);
+        this.jhiLanguageService.setLocations(['cart']);
     }
 
     loadAll() {
-        this.productService.query().subscribe(
+        this.cartService.query().subscribe(
             (res: Response) => {
-                this.products = res.json();
-                console.log("products: ");
-                console.log(this.products);
+                this.carts = res.json();
             },
             (res: Response) => this.onError(res.json())
         );
     }
     ngOnInit() {
-        console.log("am intrat in product init");
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInProducts();
+        this.registerChangeInCarts();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Product) {
+    trackId (index: number, item: Cart) {
         return item.id;
     }
 
 
 
-    registerChangeInProducts() {
-        this.eventSubscriber = this.eventManager.subscribe('productListModification', (response) => this.loadAll());
+    registerChangeInCarts() {
+        this.eventSubscriber = this.eventManager.subscribe('cartListModification', (response) => this.loadAll());
     }
 
 

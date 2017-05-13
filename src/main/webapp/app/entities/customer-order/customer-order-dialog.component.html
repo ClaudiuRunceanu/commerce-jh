@@ -1,0 +1,181 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCustomerOrderLabel" jhiTranslate="commerceApp.customerOrder.home.createOrEditLabel">Create or edit a Customer Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!customerOrder.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="customerOrder.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.code" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="customerOrder.code"
+            required maxlength="70" />
+            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 70 }">
+                   This field cannot be longer than 70 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="customerOrder.date"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.totalCost" for="field_totalCost">Total Cost</label>
+            <input type="number" class="form-control" name="totalCost" id="field_totalCost"
+                [(ngModel)]="customerOrder.totalCost"
+            required min="0" />
+            <div [hidden]="!(editForm.controls.totalCost?.dirty && editForm.controls.totalCost?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalCost?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalCost?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalCost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="customerOrder.status" id="field_status"  required>
+                <option value="OPEN" jhiTranslate="commerceApp.OrderStatus.OPEN">OPEN</option>
+                <option value="SUCCESS" jhiTranslate="commerceApp.OrderStatus.SUCCESS">SUCCESS</option>
+                <option value="ACCEPTED" jhiTranslate="commerceApp.OrderStatus.ACCEPTED">ACCEPTED</option>
+                <option value="CANCELED" jhiTranslate="commerceApp.OrderStatus.CANCELED">CANCELED</option>
+                <option value="REJECTED" jhiTranslate="commerceApp.OrderStatus.REJECTED">REJECTED</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.taxCost" for="field_taxCost">Tax Cost</label>
+            <input type="number" class="form-control" name="taxCost" id="field_taxCost"
+                [(ngModel)]="customerOrder.taxCost"
+            min="0" />
+            <div [hidden]="!(editForm.controls.taxCost?.dirty && editForm.controls.taxCost?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.taxCost?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.taxCost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.paymentCost" for="field_paymentCost">Payment Cost</label>
+            <input type="number" class="form-control" name="paymentCost" id="field_paymentCost"
+                [(ngModel)]="customerOrder.paymentCost"
+            min="0" />
+            <div [hidden]="!(editForm.controls.paymentCost?.dirty && editForm.controls.paymentCost?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.paymentCost?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.paymentCost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.deliveryCost" for="field_deliveryCost">Delivery Cost</label>
+            <input type="number" class="form-control" name="deliveryCost" id="field_deliveryCost"
+                [(ngModel)]="customerOrder.deliveryCost"
+            min="0" />
+            <div [hidden]="!(editForm.controls.deliveryCost?.dirty && editForm.controls.deliveryCost?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.deliveryCost?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.deliveryCost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.discountValue" for="field_discountValue">Discount Value</label>
+            <input type="number" class="form-control" name="discountValue" id="field_discountValue"
+                [(ngModel)]="customerOrder.discountValue"
+            min="0" />
+            <div [hidden]="!(editForm.controls.discountValue?.dirty && editForm.controls.discountValue?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.discountValue?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.discountValue?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="commerceApp.customerOrder.discountPercentage" for="field_discountPercentage">Discount Percentage</label>
+            <input type="number" class="form-control" name="discountPercentage" id="field_discountPercentage"
+                [(ngModel)]="customerOrder.discountPercentage"
+            min="0" />
+            <div [hidden]="!(editForm.controls.discountPercentage?.dirty && editForm.controls.discountPercentage?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.discountPercentage?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.discountPercentage?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="commerceApp.customerOrder.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="customerOrder.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === customerOrder.user?.id ? customerOrder.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

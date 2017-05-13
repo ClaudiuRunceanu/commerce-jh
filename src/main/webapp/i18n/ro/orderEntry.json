@@ -1,0 +1,25 @@
+{
+    "commerceApp": {
+        "orderEntry" : {
+            "home": {
+                "title": "Order Entries",
+                "createLabel": "Crează o nouă Order Entry",
+                "createOrEditLabel": "Crează sau editează o Order Entry"
+            },
+            "created": "O nouă Order Entry este creată cu identificatorul {{ param }}",
+            "updated": "O Order Entry este editată cu identificatorul {{ param }}",
+            "deleted": "O Order Entry este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Order Entry {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Entry"
+            },
+            "quantity": "Quantity",
+            "value": "Value",
+            "product": "Product",
+            "cart": "Cart",
+            "customerOrder": "Customer Order"
+        }
+    }
+}

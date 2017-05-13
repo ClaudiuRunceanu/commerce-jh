@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="commerceApp.orderEntry.home.title">Order Entries</span>
+        <button class="btn btn-primary float-right create-order-entry" [routerLink]="['/', { outlets: { popup: ['order-entry-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="commerceApp.orderEntry.home.createLabel">
+            Create new Order Entry
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="orderEntries">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="commerceApp.orderEntry.quantity">Quantity</span></th>
+            <th><span jhiTranslate="commerceApp.orderEntry.value">Value</span></th>
+            <th><span jhiTranslate="commerceApp.orderEntry.product">Product</span></th>
+            <th><span jhiTranslate="commerceApp.orderEntry.cart">Cart</span></th>
+            <th><span jhiTranslate="commerceApp.orderEntry.customerOrder">Customer Order</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let orderEntry of orderEntries ;trackBy: trackId">
+                <td><a [routerLink]="['../order-entry', orderEntry.id ]">{{orderEntry.id}}</a></td>
+                <td>{{orderEntry.quantity}}</td>
+                <td>{{orderEntry.value}}</td>
+                <td>
+                    <div *ngIf="orderEntry.product">
+                        <a [routerLink]="['../product', orderEntry.product?.id ]" >{{orderEntry.product?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="orderEntry.cart">
+                        <a [routerLink]="['../cart', orderEntry.cart?.id ]" >{{orderEntry.cart?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="orderEntry.customerOrder">
+                        <a [routerLink]="['../customer-order', orderEntry.customerOrder?.id ]" >{{orderEntry.customerOrder?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../order-entry', orderEntry.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'order-entry/'+ orderEntry.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'order-entry/'+ orderEntry.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+    "commerceApp": {
+        "OrderStatus" : {
+            "null": "",
+            "OPEN": "OPEN",
+            "SUCCESS": "SUCCESS",
+            "ACCEPTED": "ACCEPTED",
+            "CANCELED": "CANCELED",
+            "REJECTED": "REJECTED"
+        }
+    }
+}

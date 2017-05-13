@@ -1,0 +1,23 @@
+{
+    "commerceApp": {
+        "cart" : {
+            "home": {
+                "title": "Carts",
+                "createLabel": "Crează o nouă Cart",
+                "createOrEditLabel": "Crează sau editează o Cart"
+            },
+            "created": "O nouă Cart este creată cu identificatorul {{ param }}",
+            "updated": "O Cart este editată cu identificatorul {{ param }}",
+            "deleted": "O Cart este stearsă cu identificatorul {{ param }}",
+            "delete": {
+                "question": "Ești sigur că dorești să stergi Cart {{ id }}?"
+            },
+            "detail": {
+                "title": "Cart"
+            },
+            "code": "Code",
+            "user": "User",
+            "entries": "Entries"
+        }
+    }
+}

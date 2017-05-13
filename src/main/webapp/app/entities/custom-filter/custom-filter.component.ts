@@ -4,61 +4,58 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Product } from './product.model';
-import { ProductService } from './product.service';
+import { CustomFilter } from './custom-filter.model';
+import { CustomFilterService } from './custom-filter.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-product',
-    templateUrl: './product.component.html'
+    selector: 'jhi-custom-filter',
+    templateUrl: './custom-filter.component.html'
 })
-export class ProductComponent implements OnInit, OnDestroy {
-products: Product[];
+export class CustomFilterComponent implements OnInit, OnDestroy {
+customFilters: CustomFilter[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private productService: ProductService,
+        private customFilterService: CustomFilterService,
         private alertService: AlertService,
         private eventManager: EventManager,
         private principal: Principal
     ) {
-        this.jhiLanguageService.setLocations(['product']);
+        this.jhiLanguageService.setLocations(['customFilter']);
     }
 
     loadAll() {
-        this.productService.query().subscribe(
+        this.customFilterService.query().subscribe(
             (res: Response) => {
-                this.products = res.json();
-                console.log("products: ");
-                console.log(this.products);
+                this.customFilters = res.json();
             },
             (res: Response) => this.onError(res.json())
         );
     }
     ngOnInit() {
-        console.log("am intrat in product init");
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInProducts();
+        this.registerChangeInCustomFilters();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Product) {
+    trackId (index: number, item: CustomFilter) {
         return item.id;
     }
 
 
 
-    registerChangeInProducts() {
-        this.eventSubscriber = this.eventManager.subscribe('productListModification', (response) => this.loadAll());
+    registerChangeInCustomFilters() {
+        this.eventSubscriber = this.eventManager.subscribe('customFilterListModification', (response) => this.loadAll());
     }
 
 

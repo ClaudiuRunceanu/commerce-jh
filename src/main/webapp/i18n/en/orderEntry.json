@@ -1,0 +1,25 @@
+{
+    "commerceApp": {
+        "orderEntry" : {
+            "home": {
+                "title": "Order Entries",
+                "createLabel": "Create a new Order Entry",
+                "createOrEditLabel": "Create or edit a Order Entry"
+            },
+            "created": "A new Order Entry is created with identifier {{ param }}",
+            "updated": "A Order Entry is updated with identifier {{ param }}",
+            "deleted": "A Order Entry is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Entry {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Entry"
+            },
+            "quantity": "Quantity",
+            "value": "Value",
+            "product": "Product",
+            "cart": "Cart",
+            "customerOrder": "Customer Order"
+        }
+    }
+}

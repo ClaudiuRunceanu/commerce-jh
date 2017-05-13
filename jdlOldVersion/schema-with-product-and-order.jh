@@ -1,0 +1,121 @@
+
+
+
+enum OrderStatus{
+OPEN, SUCCESS, ACCEPTED, CANCELED, REJECTED
+}
+
+entity OrderEntry{
+quantity Integer required min(0),
+value Double required min(0)
+}
+
+
+
+entity Cart{
+code String required maxlength(70),
+}
+
+entity Order{
+code String required maxlength(70),
+date ZonedDateTime required,
+totalCost Double required min(0),
+status OrderStatus required,
+taxCost Double min(0),
+paymentCost Double min(0),
+deliveryCost Double min(0),
+discountValue Double min(0),
+discountPercentage Integer min(0)
+}
+
+entity Price{
+value Double required min(0),
+
+}
+
+entity Currency{
+code String required maxlength(70),
+name String required maxlength(70),
+symbol String required maxlength(10)
+}
+
+entity Catalog{
+name String required maxlength(100),
+isDefault Boolean,
+version CatalogVersion required
+}
+
+entity Category{
+name String required maxlength(100),
+description String maxlength(300)
+}
+
+entity ClassificationClassAttribute{
+description String maxlength(300),
+attributeName String required maxlength(100),
+value String required maxlength(200),
+type ClassificationAttributeType required
+}
+
+entity Stock{
+available Integer required min(0),
+preOrder Integer min(0),
+reserved Integer min(0),
+expireDate ZonedDateTime required,
+creationDate ZonedDateTime required
+}
+
+entity Warehouse{
+name String required maxlength(100),
+address String required maxlength(100),
+consignments String maxlength(200)
+}
+
+entity Product{
+code String required maxlength(100),
+name String required maxlength(200),
+description String maxlength(500),
+}
+
+entity Media{
+code String required maxlength(100),
+title String required maxlength(100),
+image ImageBlob required
+}
+
+enum ClassificationAttributeType{
+STRING, DOUBLE, BOOLEAN, RANGE, DATE
+}
+
+enum CatalogVersion{
+ONLINE, STAGE
+}
+
+relationship OneToOne{
+Cart{user} to User,
+Product{price} to Price
+}
+
+relationship ManyToMany{
+Product {categories} to Category{products} 
+}
+
+relationship OneToMany {
+Order {entries} to OrderEntry,
+Cart {entries} to OrderEntry,
+Category{classificationAttribute} to ClassificationClassAttribute,
+Product {stocks} to Stock,
+Product {media} to Media
+}
+
+relationship ManyToOne {
+OrderEntry{product} to Product,
+Order{user} to User,
+Price{currency} to Currency,
+Stock{warehouse} to Warehouse,
+Category{parent} to Category,
+Product{catalog} to Catalog
+}
+
+
+

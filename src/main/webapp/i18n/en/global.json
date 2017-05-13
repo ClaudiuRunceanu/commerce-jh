@@ -16,6 +16,10 @@
                 "warehouse": "Warehouse",
                 "product": "Product",
                 "media": "Media",
+                "customFilter": "Custom Filter",
+                "orderEntry": "Order Entry",
+                "cart": "Cart",
+                "customerOrder": "Customer Order",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

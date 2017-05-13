@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cart"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "entries",
+            "otherEntityName": "orderEntry",
+            "otherEntityRelationshipName": "cart"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 70
+        }
+    ],
+    "changelogDate": "20170513100821",
+    "entityTableName": "cart",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
