@@ -20,6 +20,38 @@
             "product": "Product",
             "cart": "Cart",
             "customerOrder": "Customer Order"
+        },
+
+        "customerOrder" : {
+            "home": {
+                "title": "Customer Orders",
+                "createLabel": "Create a new Customer Order",
+                "createOrEditLabel": "Create or edit a Customer Order"
+            },
+            "created": "A new Customer Order is created with identifier {{ param }}",
+            "updated": "A Customer Order is updated with identifier {{ param }}",
+            "deleted": "A Customer Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Order"
+            },
+            "code": "Code",
+            "date": "Date",
+            "totalCost": "Total Cost",
+            "status": "Status",
+            "taxCost": "Tax Cost",
+            "paymentCost": "Payment Cost",
+            "deliveryCost": "Delivery Cost",
+            "discountValue": "Discount Value",
+            "discountPercentage": "Discount Percentage",
+            "entries": "Entries",
+            "user": "User",
+            "quantity": "Quantity",
+            "value": "Value",
+            "product": "Product",
+            "orderEntryCreateLabel": "Add new entry"
         }
     }
 }

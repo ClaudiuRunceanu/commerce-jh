@@ -41,9 +41,10 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="orderEntry.customerOrder">
-                        <a [routerLink]="['../customer-order', orderEntry.customerOrder?.id ]" >{{orderEntry.customerOrder?.id}}</a>
-                    </div>
+                    {{orderEntry.orderId}}
+                    <!--<div *ngIf="orderEntry.customerOrder">-->
+                        <!--<a [routerLink]="['../customer-order', orderEntry.customerOrder?.id ]" >{{orderEntry.customerOrder?.id}}</a>-->
+                    <!--</div>-->
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

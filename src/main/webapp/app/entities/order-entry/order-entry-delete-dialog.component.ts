@@ -35,6 +35,8 @@ export class OrderEntryDeleteDialogComponent {
                 name: 'orderEntryListModification',
                 content: 'Deleted an orderEntry'
             });
+            this.eventManager.broadcast({ name: 'customerOrderListModification', content: 'OK'});
+
             this.activeModal.dismiss(true);
         });
     }

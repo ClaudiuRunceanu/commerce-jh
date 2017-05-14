@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.CustomerOrder;
 
 import com.commerce.repository.CustomerOrderRepository;
+import com.commerce.service.OrderService;
+import com.commerce.service.dto.OrderDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +29,11 @@ public class CustomerOrderResource {
     private final Logger log = LoggerFactory.getLogger(CustomerOrderResource.class);
 
     private static final String ENTITY_NAME = "customerOrder";
-        
-    private final CustomerOrderRepository customerOrderRepository;
 
-    public CustomerOrderResource(CustomerOrderRepository customerOrderRepository) {
-        this.customerOrderRepository = customerOrderRepository;
+    private final OrderService orderService;
+
+    public CustomerOrderResource(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     /**
@@ -43,12 +45,12 @@ public class CustomerOrderResource {
      */
     @PostMapping("/customer-orders")
     @Timed
-    public ResponseEntity<CustomerOrder> createCustomerOrder(@Valid @RequestBody CustomerOrder customerOrder) throws URISyntaxException {
+    public ResponseEntity<OrderDto> createCustomerOrder(@Valid @RequestBody OrderDto customerOrder) throws URISyntaxException {
         log.debug("REST request to save CustomerOrder : {}", customerOrder);
         if (customerOrder.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new customerOrder cannot already have an ID")).body(null);
         }
-        CustomerOrder result = customerOrderRepository.save(customerOrder);
+        OrderDto result = orderService.createNewOrder(customerOrder);
         return ResponseEntity.created(new URI("/api/customer-orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +67,12 @@ public class CustomerOrderResource {
      */
     @PutMapping("/customer-orders")
     @Timed
-    public ResponseEntity<CustomerOrder> updateCustomerOrder(@Valid @RequestBody CustomerOrder customerOrder) throws URISyntaxException {
+    public ResponseEntity<OrderDto> updateCustomerOrder(@Valid @RequestBody OrderDto customerOrder) throws URISyntaxException {
         log.debug("REST request to update CustomerOrder : {}", customerOrder);
         if (customerOrder.getId() == null) {
             return createCustomerOrder(customerOrder);
         }
-        CustomerOrder result = customerOrderRepository.save(customerOrder);
+        OrderDto result = orderService.updateOrder(customerOrder);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, customerOrder.getId().toString()))
             .body(result);
@@ -83,9 +85,9 @@ public class CustomerOrderResource {
      */
     @GetMapping("/customer-orders")
     @Timed
-    public List<CustomerOrder> getAllCustomerOrders() {
+    public List<OrderDto> getAllCustomerOrders() {
         log.debug("REST request to get all CustomerOrders");
-        List<CustomerOrder> customerOrders = customerOrderRepository.findAll();
+        List<OrderDto> customerOrders = orderService.getAllOrders();
         return customerOrders;
     }
 
@@ -97,9 +99,9 @@ public class CustomerOrderResource {
      */
     @GetMapping("/customer-orders/{id}")
     @Timed
-    public ResponseEntity<CustomerOrder> getCustomerOrder(@PathVariable Long id) {
+    public ResponseEntity<OrderDto> getCustomerOrder(@PathVariable Long id) {
         log.debug("REST request to get CustomerOrder : {}", id);
-        CustomerOrder customerOrder = customerOrderRepository.findOne(id);
+        OrderDto customerOrder = orderService.findById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(customerOrder));
     }
 
@@ -113,7 +115,7 @@ public class CustomerOrderResource {
     @Timed
     public ResponseEntity<Void> deleteCustomerOrder(@PathVariable Long id) {
         log.debug("REST request to delete CustomerOrder : {}", id);
-        customerOrderRepository.delete(id);
+        orderService.deleteOrder(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

@@ -28,6 +28,19 @@ export class OrderEntryPopupService {
         }
     }
 
+    createEntryForOrder(component: Component, id?: number): NgbModalRef {
+        if (this.isOpen) {
+            return;
+        }
+        this.isOpen = true;
+
+        let entry: OrderEntry;
+        entry = new OrderEntry();
+        entry.orderId = id;
+        return this.orderEntryModalRef(component, entry);
+
+    }
+
     orderEntryModalRef(component: Component, orderEntry: OrderEntry): NgbModalRef {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.orderEntry = orderEntry;

@@ -8,11 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 import com.commerce.domain.enumeration.OrderStatus;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * A CustomerOrder.
@@ -67,10 +67,11 @@ public class CustomerOrder implements Serializable {
     @Column(name = "discount_percentage")
     private Integer discountPercentage;
 
-    @OneToMany(mappedBy = "customerOrder")
+    @OneToMany(mappedBy = "customerOrder", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<OrderEntry> entries = new HashSet<>();
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<OrderEntry> entries = new ArrayList<>();
 
     @ManyToOne
     private User user;
@@ -200,11 +201,11 @@ public class CustomerOrder implements Serializable {
         this.discountPercentage = discountPercentage;
     }
 
-    public Set<OrderEntry> getEntries() {
+    public List<OrderEntry> getEntries() {
         return entries;
     }
 
-    public CustomerOrder entries(Set<OrderEntry> orderEntries) {
+    public CustomerOrder entries(List<OrderEntry> orderEntries) {
         this.entries = orderEntries;
         return this;
     }
@@ -221,7 +222,7 @@ public class CustomerOrder implements Serializable {
         return this;
     }
 
-    public void setEntries(Set<OrderEntry> orderEntries) {
+    public void setEntries(List<OrderEntry> orderEntries) {
         this.entries = orderEntries;
     }
 

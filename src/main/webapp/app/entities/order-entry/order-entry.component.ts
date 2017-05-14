@@ -32,6 +32,8 @@ orderEntries: OrderEntry[];
         this.orderEntryService.query().subscribe(
             (res: Response) => {
                 this.orderEntries = res.json();
+                console.log("Order Entries: ");
+                console.log(this.orderEntries);
             },
             (res: Response) => this.onError(res.json())
         );

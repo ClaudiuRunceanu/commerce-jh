@@ -21,12 +21,13 @@
             <th><span jhiTranslate="commerceApp.customerOrder.date">Date</span></th>
             <th><span jhiTranslate="commerceApp.customerOrder.totalCost">Total Cost</span></th>
             <th><span jhiTranslate="commerceApp.customerOrder.status">Status</span></th>
-            <th><span jhiTranslate="commerceApp.customerOrder.taxCost">Tax Cost</span></th>
-            <th><span jhiTranslate="commerceApp.customerOrder.paymentCost">Payment Cost</span></th>
-            <th><span jhiTranslate="commerceApp.customerOrder.deliveryCost">Delivery Cost</span></th>
-            <th><span jhiTranslate="commerceApp.customerOrder.discountValue">Discount Value</span></th>
-            <th><span jhiTranslate="commerceApp.customerOrder.discountPercentage">Discount Percentage</span></th>
+            <!--<th><span jhiTranslate="commerceApp.customerOrder.taxCost">Tax Cost</span></th>-->
+            <!--<th><span jhiTranslate="commerceApp.customerOrder.paymentCost">Payment Cost</span></th>-->
+            <!--<th><span jhiTranslate="commerceApp.customerOrder.deliveryCost">Delivery Cost</span></th>-->
+            <!--<th><span jhiTranslate="commerceApp.customerOrder.discountValue">Discount Value</span></th>-->
+            <!--<th><span jhiTranslate="commerceApp.customerOrder.discountPercentage">Discount Percentage</span></th>-->
             <th><span jhiTranslate="commerceApp.customerOrder.user">User</span></th>
+            <th><span jhiTranslate="commerceApp.customerOrder.entries">Entries</span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,13 +38,17 @@
                 <td>{{customerOrder.date | date:'medium'}}</td>
                 <td>{{customerOrder.totalCost}}</td>
                 <td jhiTranslate="{{'commerceApp.OrderStatus.' + customerOrder.status}}">{{customerOrder.status}}</td>
-                <td>{{customerOrder.taxCost}}</td>
-                <td>{{customerOrder.paymentCost}}</td>
-                <td>{{customerOrder.deliveryCost}}</td>
-                <td>{{customerOrder.discountValue}}</td>
-                <td>{{customerOrder.discountPercentage}}</td>
+                <!--<td>{{customerOrder.taxCost}}</td>-->
+                <!--<td>{{customerOrder.paymentCost}}</td>-->
+                <!--<td>{{customerOrder.deliveryCost}}</td>-->
+                <!--<td>{{customerOrder.discountValue}}</td>-->
+                <!--<td>{{customerOrder.discountPercentage}}</td>-->
                 <td>
-                    {{customerOrder.user?.id}}
+                    {{customerOrder.user?.login}}
+                </td>
+                <td>
+                    {{customerOrder.entries.length}}
+
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

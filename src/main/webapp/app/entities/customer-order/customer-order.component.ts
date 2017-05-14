@@ -32,6 +32,8 @@ customerOrders: CustomerOrder[];
         this.customerOrderService.query().subscribe(
             (res: Response) => {
                 this.customerOrders = res.json();
+                console.log("orders:");
+                console.log(this.customerOrders);
             },
             (res: Response) => this.onError(res.json())
         );

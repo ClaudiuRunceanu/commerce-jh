@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.OrderEntry;
 
 import com.commerce.repository.OrderEntryRepository;
+import com.commerce.service.OrderEntryService;
+import com.commerce.service.dto.OrderEntryDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -27,11 +29,11 @@ public class OrderEntryResource {
     private final Logger log = LoggerFactory.getLogger(OrderEntryResource.class);
 
     private static final String ENTITY_NAME = "orderEntry";
-        
-    private final OrderEntryRepository orderEntryRepository;
 
-    public OrderEntryResource(OrderEntryRepository orderEntryRepository) {
-        this.orderEntryRepository = orderEntryRepository;
+    private final OrderEntryService orderEntryService;
+
+    public OrderEntryResource(OrderEntryService orderEntryService) {
+        this.orderEntryService = orderEntryService;
     }
 
     /**
@@ -43,12 +45,12 @@ public class OrderEntryResource {
      */
     @PostMapping("/order-entries")
     @Timed
-    public ResponseEntity<OrderEntry> createOrderEntry(@Valid @RequestBody OrderEntry orderEntry) throws URISyntaxException {
+    public ResponseEntity<OrderEntryDto> createOrderEntry(@Valid @RequestBody OrderEntryDto orderEntry) throws URISyntaxException {
         log.debug("REST request to save OrderEntry : {}", orderEntry);
         if (orderEntry.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new orderEntry cannot already have an ID")).body(null);
         }
-        OrderEntry result = orderEntryRepository.save(orderEntry);
+        OrderEntryDto result = orderEntryService.createNewOrderEntry(orderEntry);
         return ResponseEntity.created(new URI("/api/order-entries/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,12 +67,12 @@ public class OrderEntryResource {
      */
     @PutMapping("/order-entries")
     @Timed
-    public ResponseEntity<OrderEntry> updateOrderEntry(@Valid @RequestBody OrderEntry orderEntry) throws URISyntaxException {
+    public ResponseEntity<OrderEntryDto> updateOrderEntry(@Valid @RequestBody OrderEntryDto orderEntry) throws URISyntaxException {
         log.debug("REST request to update OrderEntry : {}", orderEntry);
         if (orderEntry.getId() == null) {
             return createOrderEntry(orderEntry);
         }
-        OrderEntry result = orderEntryRepository.save(orderEntry);
+        OrderEntryDto result = orderEntryService.updateOrderEntry(orderEntry);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, orderEntry.getId().toString()))
             .body(result);
@@ -83,9 +85,9 @@ public class OrderEntryResource {
      */
     @GetMapping("/order-entries")
     @Timed
-    public List<OrderEntry> getAllOrderEntries() {
+    public List<OrderEntryDto> getAllOrderEntries() {
         log.debug("REST request to get all OrderEntries");
-        List<OrderEntry> orderEntries = orderEntryRepository.findAll();
+        List<OrderEntryDto> orderEntries = orderEntryService.getAllOrderEntries();
         return orderEntries;
     }
 
@@ -97,9 +99,9 @@ public class OrderEntryResource {
      */
     @GetMapping("/order-entries/{id}")
     @Timed
-    public ResponseEntity<OrderEntry> getOrderEntry(@PathVariable Long id) {
+    public ResponseEntity<OrderEntryDto> getOrderEntry(@PathVariable Long id) {
         log.debug("REST request to get OrderEntry : {}", id);
-        OrderEntry orderEntry = orderEntryRepository.findOne(id);
+        OrderEntryDto orderEntry = orderEntryService.findOrderEntryById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(orderEntry));
     }
 
@@ -113,7 +115,7 @@ public class OrderEntryResource {
     @Timed
     public ResponseEntity<Void> deleteOrderEntry(@PathVariable Long id) {
         log.debug("REST request to delete OrderEntry : {}", id);
-        orderEntryRepository.delete(id);
+        orderEntryService.deleteOrderEntry(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

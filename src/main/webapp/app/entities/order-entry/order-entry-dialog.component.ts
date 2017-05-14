@@ -69,6 +69,7 @@ export class OrderEntryDialogComponent implements OnInit {
 
     private onSaveSuccess (result: OrderEntry) {
         this.eventManager.broadcast({ name: 'orderEntryListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'customerOrderListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -116,6 +117,12 @@ export class OrderEntryPopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
+
+            if (params['orderId']) {
+                this.modalRef = this.orderEntryPopupService.createEntryForOrder(OrderEntryDialogComponent, params['orderId']);
+            }
+
+
             if ( params['id'] ) {
                 this.modalRef = this.orderEntryPopupService
                     .open(OrderEntryDialogComponent, params['id']);

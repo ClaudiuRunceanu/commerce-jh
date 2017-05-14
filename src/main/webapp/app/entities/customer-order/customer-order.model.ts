@@ -21,7 +21,7 @@ export class CustomerOrder {
         public deliveryCost?: number,
         public discountValue?: number,
         public discountPercentage?: number,
-        public entries?: OrderEntry,
+        public entries?: OrderEntry[],
         public user?: User,
     ) {
     }

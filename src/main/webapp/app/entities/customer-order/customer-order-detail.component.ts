@@ -5,6 +5,7 @@ import { EventManager , JhiLanguageService  } from 'ng-jhipster';
 
 import { CustomerOrder } from './customer-order.model';
 import { CustomerOrderService } from './customer-order.service';
+import {OrderEntry} from "../order-entry/order-entry.model";
 
 @Component({
     selector: 'jhi-customer-order-detail',
@@ -48,6 +49,10 @@ export class CustomerOrderDetailComponent implements OnInit, OnDestroy {
 
     registerChangeInCustomerOrders() {
         this.eventSubscriber = this.eventManager.subscribe('customerOrderListModification', response => this.load(this.customerOrder.id));
+    }
+
+    trackOrderEntryId (index: number, item: OrderEntry) {
+        return item.id;
     }
 
 }

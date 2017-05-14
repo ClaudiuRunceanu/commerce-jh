@@ -25,7 +25,11 @@
             "discountValue": "Discount Value",
             "discountPercentage": "Discount Percentage",
             "entries": "Entries",
-            "user": "User"
+            "user": "User",
+            "quantity": "Quantity",
+            "value": "Value",
+            "product": "Product",
+            "orderEntryCreateLabel": "Add new entry"
         }
     }
 }
