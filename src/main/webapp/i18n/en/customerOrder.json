@@ -3,8 +3,9 @@
         "customerOrder" : {
             "home": {
                 "title": "Customer Orders",
-                "createLabel": "Create a new Customer Order",
-                "createOrEditLabel": "Create or edit a Customer Order"
+                "createLabel": "Create a new customer order",
+                "createOrEditLabel": "Create or edit a Customer Order",
+                "editLabel": "Edit a customer order"
             },
             "created": "A new Customer Order is created with identifier {{ param }}",
             "updated": "A Customer Order is updated with identifier {{ param }}",

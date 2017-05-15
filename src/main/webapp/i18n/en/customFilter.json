@@ -3,8 +3,9 @@
         "customFilter" : {
             "home": {
                 "title": "Custom Filters",
-                "createLabel": "Create a new Custom Filter",
-                "createOrEditLabel": "Create or edit a Custom Filter"
+                "createLabel": "Create a new custom filter",
+                "createOrEditLabel": "Create or edit a Custom Filter",
+                "editLabel": "Edit a custom filter"
             },
             "created": "A new Custom Filter is created with identifier {{ param }}",
             "updated": "A Custom Filter is updated with identifier {{ param }}",

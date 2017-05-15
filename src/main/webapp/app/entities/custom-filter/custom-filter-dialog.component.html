@@ -1,7 +1,14 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myCustomFilterLabel" jhiTranslate="commerceApp.customFilter.home.createOrEditLabel">Create or edit a Custom Filter</h4>
+
+        <div *ngIf="customFilter.id">
+            <h4 class="modal-title" id="customFilterForEdit" jhiTranslate="commerceApp.customFilter.home.editLabel">Create or edit a customFilter</h4>
+        </div>
+        <div *ngIf="!customFilter.id">
+            <h4 class="modal-title" id="customFilterForCreate" jhiTranslate="commerceApp.customFilter.home.createLabel">Create or edit a customFilter</h4>
+        </div>
+
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>

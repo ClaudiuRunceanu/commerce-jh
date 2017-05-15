@@ -4,7 +4,8 @@
             "home": {
                 "title": "Order Entries",
                 "createLabel": "Create a new Order Entry",
-                "createOrEditLabel": "Create or edit a Order Entry"
+                "createOrEditLabel": "Create or edit a Order Entry",
+                "editLabel": "Edit an order entry"
             },
             "created": "A new Order Entry is created with identifier {{ param }}",
             "updated": "A Order Entry is updated with identifier {{ param }}",
@@ -24,9 +25,10 @@
 
         "customerOrder" : {
             "home": {
-                "title": "Customer Orders",
-                "createLabel": "Create a new Customer Order",
-                "createOrEditLabel": "Create or edit a Customer Order"
+                "title": "Order entry",
+                "createLabel": "Create a new customer order",
+                "createOrEditLabel": "Create or edit a Customer Order",
+                "editLabel": "Edit an order"
             },
             "created": "A new Customer Order is created with identifier {{ param }}",
             "updated": "A Customer Order is updated with identifier {{ param }}",

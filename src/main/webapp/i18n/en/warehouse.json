@@ -3,8 +3,9 @@
         "warehouse" : {
             "home": {
                 "title": "Warehouses",
-                "createLabel": "Create a new Warehouse",
-                "createOrEditLabel": "Create or edit a Warehouse"
+                "createLabel": "Create a new warehouse",
+                "createOrEditLabel": "Create or edit a Warehouse",
+                "editLabel": "Edit a warehouse"
             },
             "created": "A new Warehouse is created with identifier {{ param }}",
             "updated": "A Warehouse is updated with identifier {{ param }}",

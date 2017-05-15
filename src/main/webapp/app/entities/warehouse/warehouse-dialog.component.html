@@ -1,7 +1,14 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myWarehouseLabel" jhiTranslate="commerceApp.warehouse.home.createOrEditLabel">Create or edit a Warehouse</h4>
+
+        <div *ngIf="warehouse.id">
+            <h4 class="modal-title" id="warehouseLabelForEdit" jhiTranslate="commerceApp.warehouse.home.editLabel">Create or edit a warehouse</h4>
+        </div>
+        <div *ngIf="!warehouse.id">
+            <h4 class="modal-title" id="warehouseLabelForCreate" jhiTranslate="commerceApp.warehouse.home.createLabel">Create or edit a warehouse</h4>
+        </div>
+
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>

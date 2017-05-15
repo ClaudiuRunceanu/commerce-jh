@@ -5,7 +5,7 @@ export class Cart {
         public id?: number,
         public code?: string,
         public user?: User,
-        public entries?: OrderEntry,
+        public entries?: OrderEntry[],
     ) {
     }
 }

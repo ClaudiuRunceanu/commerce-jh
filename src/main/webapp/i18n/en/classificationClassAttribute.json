@@ -3,8 +3,9 @@
         "classificationClassAttribute" : {
             "home": {
                 "title": "Classification Class Attributes",
-                "createLabel": "Create a new Classification Class Attribute",
-                "createOrEditLabel": "Create or edit a Classification Class Attribute"
+                "createLabel": "Create a new classification class attribute",
+                "createOrEditLabel": "Create or edit a Classification Class Attribute",
+                "editLabel": "Edit a classification attribute"
             },
             "created": "A new Classification Class Attribute is created with identifier {{ param }}",
             "updated": "A Classification Class Attribute is updated with identifier {{ param }}",

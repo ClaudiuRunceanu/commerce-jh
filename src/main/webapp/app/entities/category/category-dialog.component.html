@@ -1,8 +1,15 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myCategoryLabel" jhiTranslate="commerceApp.category.home.createOrEditLabel">Create or edit a Category</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+
+        <div *ngIf="category.id">
+            <h4 class="modal-title" id="myCategoryLabelForEdit" jhiTranslate="commerceApp.category.home.editLabel">Create or edit a category</h4>
+        </div>
+        <div *ngIf="!category.id">
+            <h4 class="modal-title" id="myCategoryLabelForCreate" jhiTranslate="commerceApp.category.home.createLabel">Create or edit a category</h4>
+        </div>
+
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">

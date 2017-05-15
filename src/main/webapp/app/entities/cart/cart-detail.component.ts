@@ -5,6 +5,7 @@ import { EventManager , JhiLanguageService  } from 'ng-jhipster';
 
 import { Cart } from './cart.model';
 import { CartService } from './cart.service';
+import {OrderEntry} from "../order-entry/order-entry.model";
 
 @Component({
     selector: 'jhi-cart-detail',
@@ -48,6 +49,10 @@ export class CartDetailComponent implements OnInit, OnDestroy {
 
     registerChangeInCarts() {
         this.eventSubscriber = this.eventManager.subscribe('cartListModification', response => this.load(this.cart.id));
+    }
+
+    trackOrderEntryId (index: number, item: OrderEntry) {
+        return item.id;
     }
 
 }

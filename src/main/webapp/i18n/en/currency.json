@@ -3,8 +3,9 @@
         "currency" : {
             "home": {
                 "title": "Currencies",
-                "createLabel": "Create a new Currency",
-                "createOrEditLabel": "Create or edit a Currency"
+                "createLabel": "Create a new currency",
+                "createOrEditLabel": "Create or edit a Currency",
+                "editLabel": "Edit a currency"
             },
             "created": "A new Currency is created with identifier {{ param }}",
             "updated": "A Currency is updated with identifier {{ param }}",
