@@ -2,6 +2,7 @@ package com.commerce.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.commerce.service.CatalogService;
+import com.commerce.service.ProductService;
 import com.commerce.service.dto.CatalogDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -29,9 +30,12 @@ public class CatalogResource {
 
     private final CatalogService catalogService;
 
+    private final ProductService productService;
 
-    public CatalogResource(CatalogService catalogService) {
+
+    public CatalogResource(CatalogService catalogService, ProductService productService) {
         this.catalogService = catalogService;
+        this.productService = productService;
     }
 
     /**
@@ -126,9 +130,13 @@ public class CatalogResource {
      */
     @PostMapping("/catalogs/synchronize/{id}")
     @Timed
-    public ResponseEntity<CatalogDto> synchronizeCatalog(@Valid @RequestBody CatalogDto sourceCatalog, @PathVariable Long currentCatalogId) throws URISyntaxException {
+    public ResponseEntity<CatalogDto> synchronizeCatalog(@Valid @RequestBody CatalogDto sourceCatalog, @PathVariable Long id) throws URISyntaxException {
         //todo implement service for synchronization.
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(this.catalogService.findCatalogById(currentCatalogId)));
+        CatalogDto currentCatalog=this.catalogService.findCatalogById(id);
+
+        productService.synchronizeProducts(currentCatalog,sourceCatalog);
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(currentCatalog));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.commerce.repository;
 
+import com.commerce.domain.Catalog;
 import com.commerce.domain.Product;
 
 import org.springframework.data.jpa.repository.*;
@@ -19,4 +20,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("select product from Product product left join fetch product.categories where product.id =:id")
     Product findOneWithEagerRelationships(@Param("id") Long id);
 
+    List<Product> findByCatalog(Catalog catalog);
 }
