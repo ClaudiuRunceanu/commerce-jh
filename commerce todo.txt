@@ -1,36 +1,29 @@
 Entities:
   1) Currencies:
-   ->Create or edit label
   2) Prices:
    -> remove prices from ui
   3) Catalogs:
-   -> Create or edit label
    -> Create a syncronisation button and flow
   4) Categories:
-   -> Create or edit label
    -> Parent field display name instead of id 
   5) Classification Class Attributes: 
    -> It's usefull?
-   -> Create or edit label
    -> Category field display name instead of id
   6) Stocks:
    -> remove stock from ui
    -> update stock view page
   7) Warehouses:
     -> What represents consignments field?  
-    -> Create or edit label
   8) Products:
     -> create a view page for each product
   9) Media:
    -> remove media from ui
    -> update media view page
   10) Custom filters
-   -> Create or edit label
    -> test it in client ui
    -> Dto layer
   11) Order Entries
    -> remove from UI
-   -> Create or edit label
    -> improve edit/create popup
    -> creata a view page
   12) Cart
@@ -40,7 +33,6 @@ Entities:
       -> Create or edit label
       -> improve edit/create popup
   13) Customer Orders      
-   -> Create or edit label
    -> improve edit/create popup
    -> improve view page
 

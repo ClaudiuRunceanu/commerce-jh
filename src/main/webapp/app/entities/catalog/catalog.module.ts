@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CommerceSharedModule } from '../../shared';
+import { CatalogSynchronizePopupComponent, CatalogSynchronizeDialogComponent} from './catalog-synchronize-dialog.component'
 
 import {
     CatalogService,
@@ -33,6 +34,8 @@ let ENTITY_STATES = [
         CatalogDeleteDialogComponent,
         CatalogPopupComponent,
         CatalogDeletePopupComponent,
+        CatalogSynchronizePopupComponent,
+        CatalogSynchronizeDialogComponent,
     ],
     entryComponents: [
         CatalogComponent,
@@ -40,6 +43,8 @@ let ENTITY_STATES = [
         CatalogPopupComponent,
         CatalogDeleteDialogComponent,
         CatalogDeletePopupComponent,
+        CatalogSynchronizePopupComponent,
+        CatalogSynchronizeDialogComponent,
     ],
     providers: [
         CatalogService,

@@ -51,6 +51,13 @@
                             <span class="fa fa-remove"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
+                        <button type="synchronize"
+                                [routerLink]="['/', { outlets: { popup: 'catalog/synchronize/'+ catalog.id } }]"
+                                replaceUrl="true"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-bolt"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.synchronize">Synchronize</span>
+                        </button>
                     </div>
                 </td>
             </tr>

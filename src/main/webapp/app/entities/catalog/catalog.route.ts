@@ -10,6 +10,7 @@ import { CatalogPopupComponent } from './catalog-dialog.component';
 import { CatalogDeletePopupComponent } from './catalog-delete-dialog.component';
 
 import { Principal } from '../../shared';
+import {CatalogSynchronizePopupComponent} from "./catalog-synchronize-dialog.component";
 
 
 export const catalogRoute: Routes = [
@@ -44,15 +45,25 @@ export const catalogPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: 'catalog/:id/edit',
-    component: CatalogPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'commerceApp.catalog.home.title'
+        path: 'catalog/:id/edit',
+        component: CatalogPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'commerceApp.catalog.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
     },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
+    {
+        path: 'catalog/synchronize/:id',
+        component: CatalogSynchronizePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'commerceApp.catalog.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
   {
     path: 'catalog/:id/delete',
     component: CatalogDeletePopupComponent,

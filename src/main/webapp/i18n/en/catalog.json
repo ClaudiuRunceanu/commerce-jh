@@ -18,7 +18,8 @@
             },
             "name": "Name",
             "isDefault": "Is Default",
-            "version": "Version"
+            "version": "Version",
+            "sourceCatalog": "Source catalog"
         }
     }
 }

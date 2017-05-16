@@ -1,18 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Catalog } from './catalog.model';
+import {Catalog} from './catalog.model';
 @Injectable()
 export class CatalogService {
 
     private resourceUrl = 'api/catalogs';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(catalog: Catalog): Observable<Catalog> {
         let copy: Catalog = Object.assign({}, catalog);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    synchronize(id: number, catalog: Catalog): Observable<Catalog> {
+        let copy: Catalog = Object.assign({}, catalog);
+        return this.http.post(`${this.resourceUrl}/synchronize/${id}`, copy).map((res: Response) => {
             return res.json();
         });
     }
@@ -33,13 +41,12 @@ export class CatalogService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

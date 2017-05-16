@@ -117,4 +117,18 @@ public class CatalogResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * POST  /catalogs : Replace products from source catalog in current catalog.
+     *
+     * @param sourceCatalog the catalog that holds products that will be inserted in current catalog.
+     * @return the ResponseEntity with status 201 (Created) and with body the new catalog, or with status 400 (Bad Request) if the catalog has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/catalogs/synchronize/{id}")
+    @Timed
+    public ResponseEntity<CatalogDto> synchronizeCatalog(@Valid @RequestBody CatalogDto sourceCatalog, @PathVariable Long currentCatalogId) throws URISyntaxException {
+        //todo implement service for synchronization.
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(this.catalogService.findCatalogById(currentCatalogId)));
+    }
+
 }
