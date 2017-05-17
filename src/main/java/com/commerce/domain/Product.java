@@ -44,13 +44,13 @@ public class Product implements Serializable {
     @JoinColumn(unique = true)
     private Price price;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Stock> stocks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -62,8 +62,8 @@ public class Product implements Serializable {
     @ManyToMany
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "product_categories",
-               joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="id"))
+        joinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "categories_id", referencedColumnName = "id"))
     private List<Category> categories = new ArrayList<>();
 
     public Long getId() {

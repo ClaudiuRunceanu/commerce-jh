@@ -48,7 +48,7 @@ public class Stock implements Serializable {
     @ManyToOne
     private Warehouse warehouse;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     public Long getId() {

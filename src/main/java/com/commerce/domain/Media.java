@@ -41,7 +41,7 @@ public class Media implements Serializable {
     @Column(name = "image_content_type", nullable = false)
     private String imageContentType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     public Long getId() {

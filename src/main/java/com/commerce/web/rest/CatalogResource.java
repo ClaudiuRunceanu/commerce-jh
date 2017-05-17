@@ -3,6 +3,7 @@ package com.commerce.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.commerce.service.CatalogService;
 import com.commerce.service.ProductService;
+import com.commerce.service.SynchronizeService;
 import com.commerce.service.dto.CatalogDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -30,12 +31,12 @@ public class CatalogResource {
 
     private final CatalogService catalogService;
 
-    private final ProductService productService;
+    private final SynchronizeService synchronizeService;
 
 
-    public CatalogResource(CatalogService catalogService, ProductService productService) {
+    public CatalogResource(CatalogService catalogService, SynchronizeService synchronizeService) {
         this.catalogService = catalogService;
-        this.productService = productService;
+        this.synchronizeService = synchronizeService;
     }
 
     /**
@@ -134,7 +135,7 @@ public class CatalogResource {
         //todo implement service for synchronization.
         CatalogDto currentCatalog=this.catalogService.findCatalogById(id);
 
-        productService.synchronizeProducts(currentCatalog,sourceCatalog);
+        synchronizeService.synchronizeProducts(currentCatalog,sourceCatalog);
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(currentCatalog));
     }
