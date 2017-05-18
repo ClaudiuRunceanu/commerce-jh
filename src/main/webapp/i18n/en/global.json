@@ -88,6 +88,13 @@
                     "invalid": "Your email is invalid.",
                     "minlength": "Your email is required to be at least 5 characters.",
                     "maxlength": "Your email cannot be longer than 50 characters."
+                },
+
+                "password": {
+                    "required": "Your password is required.",
+                    "invalid": "Your password is invalid.",
+                    "minlength": "Your password is required to be at least 4 characters.",
+                    "maxlength": "Your password cannot be longer than 100 characters."
                 }
             }
         },
