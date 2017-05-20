@@ -42,7 +42,7 @@
         </dd>
         <dt><span jhiTranslate="commerceApp.customerOrder.user">User</span></dt>
         <dd>
-            {{customerOrder.user?.id}}
+            {{customerOrder.user?.login}}
         </dd>
     </dl>
 
@@ -67,12 +67,12 @@
             </thead>
             <tbody>
             <tr *ngFor="let orderEntry of customerOrder.entries ;trackBy: trackOrderEntryId">
-                <td><a [routerLink]="['../order-entry', orderEntry.id ]">{{orderEntry.id}}</a></td>
+                <td><a [routerLink]="['/order-entry', orderEntry.id ]">{{orderEntry.id}}</a></td>
                 <td>{{orderEntry.quantity}}</td>
                 <td>{{orderEntry.value}}</td>
                 <td>
                     <div *ngIf="orderEntry.product">
-                        <a [routerLink]="['../product', orderEntry.product?.id ]" >{{orderEntry.product?.name}}</a>
+                        <a [routerLink]="['/product', orderEntry.product?.id ]" >{{orderEntry.product?.name}}</a>
                     </div>
                 </td>
 

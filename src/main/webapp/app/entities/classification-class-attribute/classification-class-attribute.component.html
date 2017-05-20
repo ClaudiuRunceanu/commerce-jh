@@ -34,7 +34,7 @@
                 <td jhiTranslate="{{'commerceApp.ClassificationAttributeType.' + classificationClassAttribute.type}}">{{classificationClassAttribute.type}}</td>
                 <td>
                     <div *ngIf="classificationClassAttribute.category">
-                        <a [routerLink]="['../category', classificationClassAttribute.category?.id ]" >{{classificationClassAttribute.category?.id}}</a>
+                        <a [routerLink]="['../category', classificationClassAttribute.category?.id ]" >{{classificationClassAttribute.category?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

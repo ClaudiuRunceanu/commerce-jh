@@ -1,6 +1,6 @@
 
 <div *ngIf="product">
-    <h2><span jhiTranslate="commerceApp.product.detail.title">Product</span> {{product.id}}</h2>
+    <h2><span jhiTranslate="commerceApp.product.detail.title">Product</span> {{product.name}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
@@ -18,22 +18,128 @@
         </dd>
         <dt><span jhiTranslate="commerceApp.product.price">Price</span></dt>
         <dd>
-            <div *ngIf="product.price">
-                <a [routerLink]="['/price', product.price?.id]">{{product.price?.id}}</a>
-            </div>
+            <!--<div *ngIf="product.price">-->
+                <!--<a [routerLink]="['/price', product.price?.id]">{{product.price?.id}}</a>-->
+            <!--</div>-->
+            <span>{{product.price.value}} {{product.price.currency.symbol}}</span>
         </dd>
         <dt><span jhiTranslate="commerceApp.product.catalog">Catalog</span></dt>
         <dd>
             <div *ngIf="product.catalog">
-                <a [routerLink]="['/catalog', product.catalog?.id]">{{product.catalog?.id}}</a>
+                <a [routerLink]="['/catalog', product.catalog?.id]">{{product.catalog?.name}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="commerceApp.product.categories">Categories</span></dt>
         <dd>
-            <span *ngFor="let categories of product.categories; let last = last">
-                <a [routerLink]="['/category', categories?.id ]">{{categories.id}}</a>{{last ? '' : ', '}}
-            </span>
+            <!--<span *ngFor="let categories of product.categories; let last = last">-->
+                <!--<a [routerLink]="['/category', categories?.id ]">{{categories.id}}</a>{{last ? '' : ', '}}-->
+            <!--</span>-->
+            <!--categories list-->
+            <div *ngIf="product.categories.length!=0">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span jhiTranslate="global.field.id">ID</span></th>
+                        <th><span jhiTranslate="commerceApp.product.name">Name</span></th>
+                        <th><span jhiTranslate="commerceApp.product.description">Description</span></th>
+                        <th><span jhiTranslate="commerceApp.product.parent">Parent</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let category of product.categories ;trackBy: trackByCategoriId">
+                        <td><a [routerLink]="['/category', category.id ]">{{category.id}}</a></td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                        <td>
+                            <div *ngIf="category.parent">
+                                <a [routerLink]="['/category', category.parent?.id ]" >{{category.parent?.name}}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <!--end categories list-->
         </dd>
+
+        <dt><span jhiTranslate="commerceApp.product.media">Media</span></dt>
+        <dd>
+            <!--start media list-->
+            <div *ngIf="product.media.length!=0">
+            <div class="table-responsive" >
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span jhiTranslate="global.field.id">ID</span></th>
+                        <th><span jhiTranslate="commerceApp.product.code">Code</span></th>
+                        <th><span jhiTranslate="commerceApp.product.title">Title</span></th>
+                        <th><span jhiTranslate="commerceApp.product.image">Image</span></th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let media of product.media ;trackBy: trackByMediaId">
+                        <td><a [routerLink]="['/media', media.id ]">{{media.id}}</a></td>
+                        <td>{{media.code}}</td>
+                        <td>{{media.title}}</td>
+
+                        <td>
+                            <img class="media-size-list"  [src]="_DomSanitizer.bypassSecurityTrustUrl('data:'+media.imageContentType+';base64, ' + media.image)" />
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <!--end media list-->
+
+        </dd>
+        <dt><span jhiTranslate="commerceApp.product.stocks">Stocks</span></dt>
+        <dd>
+            <!--start stocks list-->
+            <div *ngIf="product.stocks.length!=0">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span jhiTranslate="global.field.id">ID</span></th>
+                        <th><span jhiTranslate="commerceApp.product.available">Available</span></th>
+                        <th><span jhiTranslate="commerceApp.product.preOrder">Pre Order</span></th>
+                        <th><span jhiTranslate="commerceApp.product.reserved">Reserved</span></th>
+                        <th><span jhiTranslate="commerceApp.product.expireDate">Expire Date</span></th>
+                        <th><span jhiTranslate="commerceApp.product.creationDate">Creation Date</span></th>
+                        <th><span jhiTranslate="commerceApp.product.warehouse">Warehouse</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let stock of product.stocks ;trackBy: trackByStockId">
+                        <td><a [routerLink]="['/stock', stock.id ]">{{stock.id}}</a></td>
+                        <td>{{stock.available}}</td>
+                        <td>{{stock.preOrder}}</td>
+                        <td>{{stock.reserved}}</td>
+                        <td>{{stock.expireDate | date:'medium'}}</td>
+                        <td>{{stock.creationDate | date:'medium'}}</td>
+                        <td>
+                            <div *ngIf="stock.warehouse">
+                                <a [routerLink]="['/warehouse', stock.warehouse?.id ]" >{{stock.warehouse?.name}}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <!--end stocks list-->
+        </dd>
+
     </dl>
 
     <button type="submit"

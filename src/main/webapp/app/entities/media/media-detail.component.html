@@ -1,6 +1,5 @@
-
 <div *ngIf="media">
-    <h2><span jhiTranslate="commerceApp.media.detail.title">Media</span> {{media.id}}</h2>
+    <h2><span jhiTranslate="commerceApp.media.detail.title">Media</span> {{media.code}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
@@ -14,14 +13,18 @@
         </dd>
         <dt><span jhiTranslate="commerceApp.media.image">Image</span></dt>
         <dd>
-            <span>{{media.image}}</span>
+            <span>
+                            <img class="media-size-view"
+                                 [src]="_DomSanitizer.bypassSecurityTrustUrl('data:'+media.imageContentType+';base64, ' + media.image)"/>
+            </span>
         </dd>
-        <dt><span jhiTranslate="commerceApp.media.product">Product</span></dt>
-        <dd>
-            <div *ngIf="media.product">
-                <a [routerLink]="['/product', media.product?.id]">{{media.product?.id}}</a>
-            </div>
-        </dd>
+
+        <!--<dt><span jhiTranslate="commerceApp.media.product">Product</span></dt>-->
+        <!--<dd>-->
+        <!--<div *ngIf="media.product">-->
+        <!--<a [routerLink]="['/product', media.product?.id]">{{media.product?.id}}</a>-->
+        <!--</div>-->
+        <!--</dd>-->
     </dl>
 
     <button type="submit"

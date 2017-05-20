@@ -6,9 +6,12 @@ import { EventManager , JhiLanguageService , DataUtils } from 'ng-jhipster';
 import { Media } from './media.model';
 import { MediaService } from './media.service';
 
+import {DomSanitizer} from '@angular/platform-browser';
+
 @Component({
     selector: 'jhi-media-detail',
-    templateUrl: './media-detail.component.html'
+    templateUrl: './media-detail.component.html',
+    styleUrls:['./media.component.css']
 })
 export class MediaDetailComponent implements OnInit, OnDestroy {
 
@@ -21,7 +24,8 @@ export class MediaDetailComponent implements OnInit, OnDestroy {
         private jhiLanguageService: JhiLanguageService,
         private dataUtils: DataUtils,
         private mediaService: MediaService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public _DomSanitizer: DomSanitizer
     ) {
         this.jhiLanguageService.setLocations(['media']);
     }

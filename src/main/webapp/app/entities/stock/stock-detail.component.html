@@ -27,15 +27,15 @@
         <dt><span jhiTranslate="commerceApp.stock.warehouse">Warehouse</span></dt>
         <dd>
             <div *ngIf="stock.warehouse">
-                <a [routerLink]="['/warehouse', stock.warehouse?.id]">{{stock.warehouse?.id}}</a>
+                <a [routerLink]="['/warehouse', stock.warehouse?.id]">{{stock.warehouse?.name}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="commerceApp.stock.product">Product</span></dt>
-        <dd>
-            <div *ngIf="stock.product">
-                <a [routerLink]="['/product', stock.product?.id]">{{stock.product?.id}}</a>
-            </div>
-        </dd>
+        <!--<dt><span jhiTranslate="commerceApp.stock.product">Product</span></dt>-->
+        <!--<dd>-->
+            <!--<div *ngIf="stock.product">-->
+                <!--<a [routerLink]="['/product', stock.product?.id]">{{stock.product?.id}}</a>-->
+            <!--</div>-->
+        <!--</dd>-->
     </dl>
 
     <button type="submit"

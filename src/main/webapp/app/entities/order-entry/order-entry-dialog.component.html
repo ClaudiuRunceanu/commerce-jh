@@ -64,23 +64,23 @@
             <label jhiTranslate="commerceApp.orderEntry.product" for="field_product">Product</label>
             <select class="form-control" id="field_product" name="product" [(ngModel)]="orderEntry.product" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="productOption.id === orderEntry.product?.id ? orderEntry.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>
+                <option [ngValue]="productOption.id === orderEntry.product?.id ? orderEntry.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.name}}</option>
             </select>
         </div>
-        <div class="form-group">
-            <label jhiTranslate="commerceApp.orderEntry.cart" for="field_cart">Cart</label>
-            <select class="form-control" id="field_cart" name="cart" [(ngModel)]="orderEntry.cart" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="cartOption.id === orderEntry.cart?.id ? orderEntry.cart : cartOption" *ngFor="let cartOption of carts; trackBy: trackCartById">{{cartOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="commerceApp.orderEntry.customerOrder" for="field_customerOrder">Customer Order</label>
-            <select class="form-control" id="field_customerOrder" name="customerOrder" [(ngModel)]="orderEntry.customerOrder" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="customerOrderOption.id === orderEntry.customerOrder?.id ? orderEntry.customerOrder : customerOrderOption" *ngFor="let customerOrderOption of customerorders; trackBy: trackCustomerOrderById">{{customerOrderOption.id}}</option>
-            </select>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label jhiTranslate="commerceApp.orderEntry.cart" for="field_cart">Cart</label>-->
+            <!--<select class="form-control" id="field_cart" name="cart" [(ngModel)]="orderEntry.cart" >-->
+                <!--<option [ngValue]="null"></option>-->
+                <!--<option [ngValue]="cartOption.id === orderEntry.cart?.id ? orderEntry.cart : cartOption" *ngFor="let cartOption of carts; trackBy: trackCartById">{{cartOption.id}}</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label jhiTranslate="commerceApp.orderEntry.customerOrder" for="field_customerOrder">Customer Order</label>-->
+            <!--<select class="form-control" id="field_customerOrder" name="customerOrder" [(ngModel)]="orderEntry.customerOrder" >-->
+                <!--<option [ngValue]="null"></option>-->
+                <!--<option [ngValue]="customerOrderOption.id === orderEntry.customerOrder?.id ? orderEntry.customerOrder : customerOrderOption" *ngFor="let customerOrderOption of customerorders; trackBy: trackCustomerOrderById">{{customerOrderOption.id}}</option>-->
+            <!--</select>-->
+        <!--</div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

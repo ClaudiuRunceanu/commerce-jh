@@ -23,7 +23,7 @@
         <dt><span jhiTranslate="commerceApp.classificationClassAttribute.category">Category</span></dt>
         <dd>
             <div *ngIf="classificationClassAttribute.category">
-                <a [routerLink]="['/category', classificationClassAttribute.category?.id]">{{classificationClassAttribute.category?.id}}</a>
+                <a [routerLink]="['/category', classificationClassAttribute.category?.id]">{{classificationClassAttribute.category?.name}}</a>
             </div>
         </dd>
     </dl>

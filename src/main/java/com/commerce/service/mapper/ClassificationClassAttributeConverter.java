@@ -38,6 +38,7 @@ public class ClassificationClassAttributeConverter {
         model.setAttributeName(data.getAttributeName());
         model.setDescription(data.getDescription());
         model.setType(data.getType());
+        model.setValue(data.getValue());
         model.setCategory(categoryConverter.getCategoryModel(data.getCategory()));
 
         return model;

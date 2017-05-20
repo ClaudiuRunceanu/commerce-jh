@@ -15,21 +15,21 @@
         <dt><span jhiTranslate="commerceApp.orderEntry.product">Product</span></dt>
         <dd>
             <div *ngIf="orderEntry.product">
-                <a [routerLink]="['/product', orderEntry.product?.id]">{{orderEntry.product?.id}}</a>
+                <a [routerLink]="['/product', orderEntry.product?.id]">{{orderEntry.product?.name}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="commerceApp.orderEntry.cart">Cart</span></dt>
-        <dd>
-            <div *ngIf="orderEntry.cart">
-                <a [routerLink]="['/cart', orderEntry.cart?.id]">{{orderEntry.cart?.id}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="commerceApp.orderEntry.customerOrder">Customer Order</span></dt>
-        <dd>
-            <div *ngIf="orderEntry.customerOrder">
-                <a [routerLink]="['/customer-order', orderEntry.customerOrder?.id]">{{orderEntry.customerOrder?.id}}</a>
-            </div>
-        </dd>
+        <!--<dt><span jhiTranslate="commerceApp.orderEntry.cart">Cart</span></dt>-->
+        <!--<dd>-->
+            <!--<div *ngIf="orderEntry.cart">-->
+                <!--<a [routerLink]="['/cart', orderEntry.cart?.id]">{{orderEntry.cart?.id}}</a>-->
+            <!--</div>-->
+        <!--</dd>-->
+        <!--<dt><span jhiTranslate="commerceApp.orderEntry.customerOrder">Customer Order</span></dt>-->
+        <!--<dd>-->
+            <!--<div *ngIf="orderEntry.customerOrder">-->
+                <!--<a [routerLink]="['/customer-order', orderEntry.customerOrder?.id]">{{orderEntry.customerOrder?.id}}</a>-->
+            <!--</div>-->
+        <!--</dd>-->
     </dl>
 
     <button type="submit"

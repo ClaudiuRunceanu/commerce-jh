@@ -173,7 +173,7 @@
             <label jhiTranslate="commerceApp.customerOrder.user" for="field_user">User</label>
             <select class="form-control" id="field_user" name="user" [(ngModel)]="customerOrder.user" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === customerOrder.user?.id ? customerOrder.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                <option [ngValue]="userOption.id === customerOrder.user?.id ? customerOrder.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
     </div>
