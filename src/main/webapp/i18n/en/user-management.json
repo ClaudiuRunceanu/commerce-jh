@@ -27,6 +27,7 @@
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
         "lastModifiedDate": "Modified date",
+        "address": "Address",
         "password": "Password"
     }
 }

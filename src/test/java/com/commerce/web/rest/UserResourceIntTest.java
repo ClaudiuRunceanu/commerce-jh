@@ -144,6 +144,7 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            "address",
             authorities);
 
         restUserMockMvc.perform(post("/api/users")
@@ -184,6 +185,7 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            "address",
             authorities);
 
         // An entity with an existing ID cannot be created, so this API call must fail
@@ -220,6 +222,7 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            "address",
             authorities);
 
         // Create the User
@@ -256,6 +259,7 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            "address",
             authorities);
 
         // Create the User
@@ -339,6 +343,7 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            "address",
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -383,6 +388,7 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            "address",
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -438,6 +444,7 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            "address",
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -482,6 +489,7 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            "address",
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
