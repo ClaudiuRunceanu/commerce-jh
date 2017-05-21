@@ -3,12 +3,14 @@ package com.commerce.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,10 +35,11 @@ public class Cart implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<OrderEntry> entries = new HashSet<>();
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<OrderEntry> entries = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -72,11 +75,11 @@ public class Cart implements Serializable {
         this.user = user;
     }
 
-    public Set<OrderEntry> getEntries() {
+    public List<OrderEntry> getEntries() {
         return entries;
     }
 
-    public Cart entries(Set<OrderEntry> orderEntries) {
+    public Cart entries(List<OrderEntry> orderEntries) {
         this.entries = orderEntries;
         return this;
     }
@@ -93,7 +96,7 @@ public class Cart implements Serializable {
         return this;
     }
 
-    public void setEntries(Set<OrderEntry> orderEntries) {
+    public void setEntries(List<OrderEntry> orderEntries) {
         this.entries = orderEntries;
     }
 

@@ -19,7 +19,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="commerceApp.cart.code">Code</span></th>
             <th><span jhiTranslate="commerceApp.cart.user">User</span></th>
-            <th></th>
+            <th><span jhiTranslate="commerceApp.cart.entries">Entries</span></th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +28,9 @@
                 <td>{{cart.code}}</td>
                 <td>
                     {{cart.user?.login}}
+                </td>
+                <td>
+                    {{cart.entries.length}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

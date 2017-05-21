@@ -17,6 +17,9 @@
             },
             "code": "Code",
             "user": "User",
+            "quantity": "Quantity",
+            "value": "Value",
+            "product": "Product",
             "entries": "Entries"
         }
     }

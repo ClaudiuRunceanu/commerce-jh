@@ -4,6 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.domain.Cart;
 
 import com.commerce.repository.CartRepository;
+import com.commerce.service.CartService;
+import com.commerce.service.dto.CartDto;
+import com.commerce.service.dto.OrderEntryDto;
 import com.commerce.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +31,11 @@ public class CartResource {
     private final Logger log = LoggerFactory.getLogger(CartResource.class);
 
     private static final String ENTITY_NAME = "cart";
-        
-    private final CartRepository cartRepository;
 
-    public CartResource(CartRepository cartRepository) {
-        this.cartRepository = cartRepository;
+    private final CartService cartService;
+
+    public CartResource(CartService cartService) {
+        this.cartService = cartService;
     }
 
     /**
@@ -43,16 +47,17 @@ public class CartResource {
      */
     @PostMapping("/carts")
     @Timed
-    public ResponseEntity<Cart> createCart(@Valid @RequestBody Cart cart) throws URISyntaxException {
+    public ResponseEntity<CartDto> createCart(@Valid @RequestBody CartDto cart) throws URISyntaxException {
         log.debug("REST request to save Cart : {}", cart);
         if (cart.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new cart cannot already have an ID")).body(null);
         }
-        Cart result = cartRepository.save(cart);
+        CartDto result = cartService.createNewCart(cart);
         return ResponseEntity.created(new URI("/api/carts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
 
     /**
      * PUT  /carts : Updates an existing cart.
@@ -65,12 +70,12 @@ public class CartResource {
      */
     @PutMapping("/carts")
     @Timed
-    public ResponseEntity<Cart> updateCart(@Valid @RequestBody Cart cart) throws URISyntaxException {
+    public ResponseEntity<CartDto> updateCart(@Valid @RequestBody CartDto cart) throws URISyntaxException {
         log.debug("REST request to update Cart : {}", cart);
         if (cart.getId() == null) {
             return createCart(cart);
         }
-        Cart result = cartRepository.save(cart);
+        CartDto result = cartService.updateCart(cart);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cart.getId().toString()))
             .body(result);
@@ -83,9 +88,9 @@ public class CartResource {
      */
     @GetMapping("/carts")
     @Timed
-    public List<Cart> getAllCarts() {
+    public List<CartDto> getAllCarts() {
         log.debug("REST request to get all Carts");
-        List<Cart> carts = cartRepository.findAll();
+        List<CartDto> carts = cartService.getAllCarts();
         return carts;
     }
 
@@ -97,9 +102,9 @@ public class CartResource {
      */
     @GetMapping("/carts/{id}")
     @Timed
-    public ResponseEntity<Cart> getCart(@PathVariable Long id) {
+    public ResponseEntity<CartDto> getCart(@PathVariable Long id) {
         log.debug("REST request to get Cart : {}", id);
-        Cart cart = cartRepository.findOne(id);
+        CartDto cart = cartService.findById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(cart));
     }
 
@@ -113,7 +118,7 @@ public class CartResource {
     @Timed
     public ResponseEntity<Void> deleteCart(@PathVariable Long id) {
         log.debug("REST request to delete Cart : {}", id);
-        cartRepository.delete(id);
+        cartService.deleteCart(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
