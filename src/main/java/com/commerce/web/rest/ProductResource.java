@@ -5,9 +5,15 @@ import com.codahale.metrics.annotation.Timed;
 import com.commerce.service.ProductService;
 import com.commerce.service.dto.ProductDto;
 import com.commerce.web.rest.util.HeaderUtil;
+import com.commerce.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,10 +92,13 @@ public class ProductResource {
      */
     @GetMapping("/products")
     @Timed
-    public List<ProductDto> getAllProducts() {
+    public ResponseEntity<List<ProductDto>> getAllProducts(@ApiParam Pageable pageable) {
         log.debug("REST request to get all Products");
 //        List<Product> products = productRepository.findAllWithEagerRelationships();
-        return productService.getAllProducts();
+        final Page<ProductDto> page=productService.getAllProductPages(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
+//        return productService.getAllProducts();
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 

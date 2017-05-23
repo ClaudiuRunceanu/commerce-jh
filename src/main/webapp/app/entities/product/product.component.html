@@ -16,15 +16,15 @@
     <div class="table-responsive" *ngIf="products">
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th><span jhiTranslate="commerceApp.product.code">Code</span></th>
-                <th><span jhiTranslate="commerceApp.product.name">Name</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span><span class="fa fa-sort"></span></th>
+                <th jhiSortBy="code"><span jhiTranslate="commerceApp.product.code">Code</span><span class="fa fa-sort"></span></th>
+                <th jhiSortBy="name"><span jhiTranslate="commerceApp.product.name">Name</span><span class="fa fa-sort"></span></th>
                 <!--<th><span jhiTranslate="commerceApp.product.description">Description</span></th>-->
                 <!--<th><span jhiTranslate="commerceApp.product.price">Price</span></th>-->
-                <th><span jhiTranslate="commerceApp.product.catalog">Catalog</span></th>
+                <th jhiSortBy="catalog"><span jhiTranslate="commerceApp.product.catalog">Catalog</span><span class="fa fa-sort"></span></th>
                 <th><span jhiTranslate="commerceApp.product.categories">Categories</span></th>
-                <th><span jhiTranslate="commerceApp.product.price">Price</span></th>
+                <th><span jhiTranslate="commerceApp.product.price">Price</span><span class="fa fa-sort"></span></th>
                 <th><span jhiTranslate="commerceApp.product.stocks">Stock</span></th>
                 <th><span jhiTranslate="commerceApp.product.media">Media</span></th>
                 <th></th>
@@ -108,4 +108,14 @@
             </tbody>
         </table>
     </div>
+
+    <div *ngIf="products">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage" ></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [maxSize]="7"  [rotate]="true"  [(page)]="page" (pageChange)="loadPage(page)" ></ngb-pagination>
+        </div>
+    </div>
+
 </div>

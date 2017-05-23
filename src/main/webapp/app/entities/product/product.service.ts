@@ -36,6 +36,24 @@ export class ProductService {
         ;
     }
 
+    paginationQuery(req?: any): Observable<Response> {
+        let params: URLSearchParams = new URLSearchParams();
+        if (req) {
+            params.set('page', req.page);
+            params.set('size', req.size);
+            if (req.sort) {
+                params.paramsMap.set('sort', req.sort);
+            }
+        }
+
+        let options = {
+            search: params
+        };
+
+        return this.http.get(this.resourceUrl, options);
+    }
+
+
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }

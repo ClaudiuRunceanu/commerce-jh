@@ -15,6 +15,7 @@ import {
     productRoute,
     productPopupRoute,
 } from './';
+import {ProductResolvePagingParams} from "./product.route";
 
 
 let ENTITY_STATES = [
@@ -45,6 +46,7 @@ let ENTITY_STATES = [
     providers: [
         ProductService,
         ProductPopupService,
+        ProductResolvePagingParams
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -4,6 +4,8 @@ import com.commerce.domain.Product;
 import com.commerce.repository.ProductRepository;
 import com.commerce.service.dto.ProductDto;
 import com.commerce.service.mapper.ProductConverter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,9 @@ public class ProductService {
         return this.productConverter.getProductData(product);
     }
 
+    public Page<ProductDto> getAllProductPages(Pageable pageable){
+        return productRepository.findAll(pageable).map(productConverter::getProductData);
+    }
 
 
 }
