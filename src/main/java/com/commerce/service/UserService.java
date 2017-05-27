@@ -3,7 +3,6 @@ package com.commerce.service;
 import com.commerce.domain.Authority;
 import com.commerce.domain.User;
 import com.commerce.repository.AuthorityRepository;
-import com.commerce.repository.PersistentTokenRepository;
 import com.commerce.config.Constants;
 import com.commerce.repository.UserRepository;
 import com.commerce.security.AuthoritiesConstants;
@@ -11,7 +10,6 @@ import com.commerce.security.SecurityUtils;
 import com.commerce.service.util.RandomUtil;
 import com.commerce.service.dto.UserDTO;
 
-import com.commerce.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -38,14 +35,11 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final PersistentTokenRepository persistentTokenRepository;
-
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
     }
 
@@ -113,7 +107,7 @@ public class UserService {
         return newUser;
     }
 
-    public User createUser( ManagedUserVM userDTO) {
+    public User createUser(UserDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin());
         user.setFirstName(userDTO.getFirstName());
@@ -132,8 +126,7 @@ public class UserService {
             );
             user.setAuthorities(authorities);
         }
-//        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
-        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
@@ -226,23 +219,6 @@ public class UserService {
         return userRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
     }
 
-    /**
-     * Persistent Token are used for providing automatic authentication, they should be automatically deleted after
-     * 30 days.
-     * <p>
-     * This is scheduled to get fired everyday, at midnight.
-     * </p>
-     */
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void removeOldPersistentTokens() {
-        LocalDate now = LocalDate.now();
-        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).forEach(token -> {
-            log.debug("Deleting token {}", token.getSeries());
-            User user = token.getUser();
-            user.getPersistentTokens().remove(token);
-            persistentTokenRepository.delete(token);
-        });
-    }
 
     /**
      * Not activated users should be automatically deleted after 3 days.

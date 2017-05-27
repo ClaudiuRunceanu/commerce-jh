@@ -16,11 +16,6 @@ export class UserRouteAccessService implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-        console.log("in UserRouteAccessService ");
-        if(route.data['authorities'].length==0){
-            return true;
-        }
-
         return this.checkLogin(route.data['authorities'], state.url);
     }
 

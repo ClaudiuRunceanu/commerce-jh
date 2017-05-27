@@ -26,7 +26,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/commerce?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://localhost:3306/commercejwt?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password: root
         hikari:
@@ -109,6 +109,12 @@ jhipster:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
             key: 1ee20f484a6e4a467dced02aea1663cb7e96b618
+        authentication:
+            jwt:
+                secret: my-secret-token-to-change-in-production
+                # Token is valid 24 hours
+                token-validity-in-seconds: 86400
+                token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: commerce@localhost
         base-url: http://127.0.0.1:8080
