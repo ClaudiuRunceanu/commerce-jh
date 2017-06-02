@@ -55,4 +55,13 @@ public class MediaConverter {
         }
         return dataList;
     }
+
+    public List<Media> getMediaModelList(List<MediaDto> dataList){
+        List<Media> modelList=new ArrayList<>();
+        for(MediaDto data:dataList){
+            Media model=getMediaModel(data);
+            modelList.add(model);
+        }
+        return modelList;
+    }
 }

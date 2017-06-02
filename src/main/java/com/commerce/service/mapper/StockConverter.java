@@ -62,4 +62,13 @@ public class StockConverter {
 
         return stockDtos;
     }
+
+    public List<Stock> getStockModelList(List<StockDto> dataList){
+        List<Stock> modelList= new ArrayList<>();
+        for(StockDto data:dataList){
+            Stock model=getStockModel(data);
+            modelList.add(model);
+        }
+        return modelList;
+    }
 }
