@@ -9,7 +9,7 @@
     "packageName": "com.commerce",
     "packageFolder": "com/commerce",
     "serverPort": "8080",
-    "authenticationType": "session",
+    "authenticationType": "jwt",
     "hibernateCache": "ehcache",
     "clusteredHttpSession": false,
     "websocket": false,
@@ -21,7 +21,6 @@
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "rememberMeKey": "1ee20f484a6e4a467dced02aea1663cb7e96b618",
     "clientFramework": "angular2",
     "useSass": false,
     "clientPackageManager": "yarn",
@@ -33,6 +32,7 @@
     "languages": [
       "en",
       "ro"
-    ]
+    ],
+    "jwtSecretKey": "b749ae5da71666271f49a6c08c4fe374d23c7a21"
   }
 }

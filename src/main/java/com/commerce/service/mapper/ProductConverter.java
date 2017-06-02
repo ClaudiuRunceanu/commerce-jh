@@ -66,12 +66,26 @@ public class ProductConverter {
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setCatalog(productDTO.getCatalog());
-        //stocks
-        //media
+
+        if (productDTO.getMedia() != null) {
+            populateModelWithMedia(productDTO, product);
+        }
+
+        if (productDTO.getStocks() != null) {
+            populateModelWithStock(productDTO, product);
+        }
 
         populateModelWithCategoriesDetail(productDTO, product);
         populateModelWithPriceDetail(productDTO, product);
         return product;
+    }
+
+    private void populateModelWithStock(ProductDto productDTO, Product product) {
+        product.setStocks(stockConverter.getStockModelList(productDTO.getStocks()));
+    }
+
+    private void populateModelWithMedia(ProductDto productDTO, Product product) {
+      product.setMedia(mediaConverter.getMediaModelList(productDTO.getMedia()));
     }
 
     private void populateModelWithCategoriesDetail(ProductDto productDTO, Product product) {
