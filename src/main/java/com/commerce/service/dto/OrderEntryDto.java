@@ -12,16 +12,25 @@ public class OrderEntryDto {
     private Long id;
 
     @NotNull
-    @Min(value = 0)
+    @Min(value = 1)
     private Integer quantity;
 
-    @NotNull
     @DecimalMin(value = "0")
     private Double value;
+
+    private Long productOrderId;
 
     private ProductDto product;
 
     private Long orderId;
+
+    public Long getProductOrderId() {
+        return productOrderId;
+    }
+
+    public void setProductOrderId(Long productOrderId) {
+        this.productOrderId = productOrderId;
+    }
 
     public Long getOrderId() {
         return orderId;

@@ -1,6 +1,9 @@
 package com.commerce.service.mapper;
 
 import com.commerce.domain.CustomerOrder;
+import com.commerce.domain.User;
+import com.commerce.repository.UserRepository;
+import com.commerce.service.UserService;
 import com.commerce.service.dto.OrderDto;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +16,11 @@ import java.util.List;
 @Component
 public class OrderConverter {
     private OrderEntryConverter orderEntryConverter;
+    private UserRepository userRepository;
 
-    public OrderConverter(OrderEntryConverter orderEntryConverter) {
+    public OrderConverter(OrderEntryConverter orderEntryConverter, UserRepository userRepository) {
         this.orderEntryConverter = orderEntryConverter;
+        this.userRepository = userRepository;
     }
 
     public OrderDto getOrderData(CustomerOrder model) {
@@ -49,7 +54,14 @@ public class OrderConverter {
         model.setDeliveryCost(data.getDeliveryCost());
         model.setTaxCost(data.getTaxCost());
         model.setTotalCost(data.getTotalCost());
-        model.setUser(data.getUser());
+
+        if(data.getUser().getId()==null){
+            User user=userRepository.findOneByLogin(data.getUser().getLogin()).get();
+            model.setUser(user);
+        }else{
+            model.setUser(data.getUser());
+        }
+
         model.setEntries(orderEntryConverter.getOrderEntryModelList(data.getEntries()));
         return model;
     }

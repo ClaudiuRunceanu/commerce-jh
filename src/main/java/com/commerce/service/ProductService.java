@@ -1,6 +1,7 @@
 package com.commerce.service;
 
 import com.commerce.domain.Product;
+import com.commerce.domain.Stock;
 import com.commerce.repository.ProductRepository;
 import com.commerce.service.dto.ProductDto;
 import com.commerce.service.mapper.ProductConverter;
@@ -45,7 +46,33 @@ public class ProductService {
         return this.productConverter.getProductData(product);
     }
 
-    public Page<ProductDto> getAllProductPages(Pageable pageable){
+    public Product updateProductStockInvolvedInOrder(Long id, Integer quantity){
+        Product product=this.productRepository.findOneWithEagerRelationships(id);
+        return  updateProductStockInvolvedInOrder(product,quantity);
+    }
+
+    public Product updateProductStockInvolvedInOrder(Product product, Integer quantity) {
+
+        for (Stock stock : product.getStocks()) {
+            if (stock.getAvailable() > 0) {
+                Integer currentAvailable = stock.getAvailable();
+                Integer currentReserved=0;
+
+                if( stock.getReserved()!=null){
+                    currentReserved=stock.getReserved();
+                }
+
+                stock.setAvailable(currentAvailable - quantity);
+                stock.setReserved(currentReserved + quantity);
+
+                break;
+            }
+        }
+
+        return product;
+    }
+
+    public Page<ProductDto> getAllProductPages(Pageable pageable) {
         return productRepository.findAll(pageable).map(productConverter::getProductData);
     }
 

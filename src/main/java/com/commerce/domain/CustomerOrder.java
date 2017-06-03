@@ -67,7 +67,7 @@ public class CustomerOrder implements Serializable {
     @Column(name = "discount_percentage")
     private Integer discountPercentage;
 
-    @OneToMany(mappedBy = "customerOrder", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customerOrder", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Fetch(value = FetchMode.SUBSELECT)

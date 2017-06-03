@@ -1,7 +1,9 @@
 package com.commerce.service;
 
 import com.commerce.domain.CustomerOrder;
+import com.commerce.domain.OrderEntry;
 import com.commerce.repository.CustomerOrderRepository;
+import com.commerce.repository.OrderEntryRepository;
 import com.commerce.service.dto.OrderDto;
 import com.commerce.service.mapper.OrderConverter;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,24 @@ import java.util.List;
 public class OrderService {
     private CustomerOrderRepository orderRepository;
     private OrderConverter orderConverter;
+    private OrderEntryRepository orderEntryRepository;
 
-    public OrderService(CustomerOrderRepository orderRepository, OrderConverter orderConverter) {
+    public OrderService(CustomerOrderRepository orderRepository, OrderConverter orderConverter, OrderEntryRepository orderEntryRepository) {
         this.orderRepository = orderRepository;
         this.orderConverter = orderConverter;
+        this.orderEntryRepository = orderEntryRepository;
     }
 
     public OrderDto createNewOrder(OrderDto data) {
-        CustomerOrder model = orderRepository.save(orderConverter.getOrderModel(data));
+        CustomerOrder convertedOrderDetail = orderConverter.getOrderModel(data);
+        CustomerOrder model = orderRepository.save(convertedOrderDetail);
+
+        if (convertedOrderDetail.getEntries() != null) {
+            List<OrderEntry> entries = convertedOrderDetail.getEntries();
+            entries.stream().forEach(orderEntry -> orderEntry.setCustomerOrder(model));
+            orderEntryRepository.save(entries);
+        }
+
         data.setId(model.getId());
         return data;
     }
