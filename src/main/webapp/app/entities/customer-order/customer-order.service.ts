@@ -12,8 +12,10 @@ export class CustomerOrderService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(customerOrder: CustomerOrder): Observable<CustomerOrder> {
+        console.log("customer order obj: ",customerOrder);
         let copy: CustomerOrder = Object.assign({}, customerOrder);
         copy.date = this.dateUtils.toDate(customerOrder.date);
+        console.log("customer order copy: ",copy);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });

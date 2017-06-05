@@ -61,7 +61,7 @@
                 "authenticated": {
                     "prefix": "If you want to ",
                     "link": "sign in",
-                    "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                    "suffix": ", please use your username and password. <br/> If is the first time when you authenticate in platform please change your password."
                 },
                 "register": {
                     "noaccount": "You don't have an account yet?",

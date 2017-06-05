@@ -70,7 +70,7 @@
                 "authenticated": {
                     "prefix": "Dacă doriți să vă ",
                     "link": "autentificați",
-                    "suffix": ", puteți încerca conturile implicite:<br/>- Administrator (login=\"admin\" si parola=\"admin\") <br/>- Utilizator (login=\"user\" si parola=\"user\")."
+                    "suffix": ", vă rugăm să utilizați numele de utilizator și parola. <br/>  Dacă este prima dată când vă autentificați în platformă vă rugăm să vă schimbați parola."
                 },
                 "register": {
                     "noaccount": "Înca nu aveți un cont?",
