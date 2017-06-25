@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 
-import { AuthService } from '../';
-import { Principal } from '../';
-import { LoginModalService } from '../login/login-modal.service';
-import { StateStorageService } from './state-storage.service';
+import {AuthService} from '../';
+import {Principal} from '../';
+import {LoginModalService} from '../login/login-modal.service';
+import {StateStorageService} from './state-storage.service';
 
 @Injectable()
 export class UserRouteAccessService implements CanActivate {
@@ -16,6 +16,11 @@ export class UserRouteAccessService implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
+        console.log("in UserRouteAccessService ");
+        if (route.data['authorities'].length == 0) {
+            console.log("no authorities for current route");
+            return true;
+        }
         return this.checkLogin(route.data['authorities'], state.url);
     }
 

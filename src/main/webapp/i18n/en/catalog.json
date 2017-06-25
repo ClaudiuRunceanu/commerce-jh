@@ -5,7 +5,9 @@
                 "title": "Catalogs",
                 "createLabel": "Create a new catalog",
                 "createOrEditLabel": "Create or edit a Catalog",
-                "editLabel": "Edit a catalog"
+                "editLabel": "Edit a catalog",
+                "synchronize":"Synchronize catalog",
+                "sync":"Synchronize"
             },
             "created": "A new Catalog is created with identifier {{ param }}",
             "updated": "A Catalog is updated with identifier {{ param }}",
@@ -17,7 +19,7 @@
                 "title": "Catalog"
             },
             "name": "Name",
-            "isDefault": "Is Default",
+            "isDefault": "Is active",
             "version": "Version",
             "sourceCatalog": "Source catalog"
         }
